@@ -1,8 +1,8 @@
 {
     "name"           : "rubberband",
-    "version"        : "0.1.0",
+    "version"        : "0.1.1",
     "description"    : "String templating",
-    "keywords"       : ["template", "substitution", "handlebars"],
+    "keywords"       : ["template", "live template", "substitution", "replacement", "handlebars"],
     "author"         : "Dan Stocker <dan@kwaia.com>",
     "copyright"      : "Copyright (c) 2015 Dan Stocker",
     "license"        : "MIT",
