@@ -8,12 +8,13 @@ troop.postpone(rubberband, 'Template', function () {
     /**
      * @name rubberband.Template.create
      * @function
-     * @param {string} templateString Handlebars - based templateString string.
+     * @param {string|rubberband.Stringifiable} templateString Either handlebars based string,
+     * or object that serializes to one.
      * @returns {rubberband.Template}
      */
 
     /**
-     * Defines a template with handlebars parameters. The parameters may be substituted
+     * Defines a template with handlebars parameters. Parameters may be replaced
      * with strings and Stringifiable instances.
      * @class
      * @extends troop.Base
@@ -56,7 +57,7 @@ troop.postpone(rubberband, 'Template', function () {
         })
         .addMethods(/** @lends rubberband.Template# */{
             /**
-             * @param {string} templateString
+             * @param {string|rubberband.Stringifiable} templateString
              * @ignore
              */
             init: function (templateString) {
@@ -73,7 +74,7 @@ troop.postpone(rubberband, 'Template', function () {
              * @returns {string|string[]}
              */
             extractTokens: function () {
-                var serializedTemplate = this.toString(),
+                var serializedTemplate = rubberband.Stringifier.stringify(this.templateString),
                     parsedTemplate;
 
                 if (this.RE_PARAMETER_TESTER.test(serializedTemplate)) {
