@@ -61,7 +61,7 @@
         var format = 'foo {{bar}} baz'.toFormat();
 
         equal(
-            format.setContent({
+            format.getResolvedString({
                 '{{bar}}'  : "Hello {{world}}",
                 '{{world}}': "World!"
             }),
@@ -73,7 +73,7 @@
         var format = 'foo {{bar}} baz'.toFormat();
 
         equal(
-            format.setContent({
+            format.getResolvedString({
                 '{{bar}}': undefined
             }),
             "foo {{bar}} baz",
@@ -84,7 +84,7 @@
         var format = 'foo {{bar}} baz'.toFormat();
 
         equal(
-            format.setContent({
+            format.getResolvedString({
                 '{{bar}}': {}
             }),
             "foo [object Object] baz",

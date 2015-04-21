@@ -1,7 +1,7 @@
 /**
  * @name rubberband.Stringifiable
  * @class
- * @extends Object
+ * @extends Object.prototype
  */
 
 /**

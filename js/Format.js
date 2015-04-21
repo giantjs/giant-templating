@@ -85,17 +85,12 @@ troop.postpone(rubberband, 'Format', function () {
             },
 
             /**
-             * Fills current serializedFormat with content using the specified replacements and returns the generated string.
+             * Resolves the params in the format as well as the replacements and returns the generated string.
+             * TODO: Use sntls.Collection.mergeInto() as soon as it's ready.
              * @param {object} replacements Placeholder - string / Stringifiable associations.
              * @returns {string}
-             * @example
-             * 'May fortune {{do sg}}'.toFormat()
-             *  .setContent({
-             *      '{{do sg}}': "favor the {{what}}.",
-             *      '{{what}}': "foolish"
-             *  }) // "May fortune favor the foolish."
              */
-            setContent: function (replacements) {
+            getResolvedString: function (replacements) {
                 var resolvedParameters = sntls.Collection
                     // merging current serializedFormat with replacement values as formats
                     .create({
