@@ -7,9 +7,9 @@
 
     test("Conversion from array", function () {
         var formatCollection = [
-            'foo'.toFormat(),
-            'bar'.toFormat(),
-            'baz'.toFormat()
+            'foo'.toTemplate(),
+            'bar'.toTemplate(),
+            'baz'.toTemplate()
         ].toFormatCollection();
 
         ok(formatCollection.isA(rubberband.FormatCollection), "should return FormatCollection instance");
@@ -18,9 +18,9 @@
 
     test("Conversion from Hash", function () {
         var hash = [
-                'foo'.toFormat(),
-                'bar'.toFormat(),
-                'baz'.toFormat()
+                'foo'.toTemplate(),
+                'bar'.toTemplate(),
+                'baz'.toTemplate()
             ].toHash(),
             formatCollection = hash.toFormatCollection();
 
@@ -30,13 +30,13 @@
 
     test("Unique token extraction from mixed format collection", function () {
         var formatCollection = [
-                rubberband.Format.create({
+                rubberband.Template.create({
                     toString: function () {
                         return 'hello {{foo}} world {{bar}} !';
                     }
                 }),
-                'brave {{bar}}'.toFormat(),
-                'new'.toFormat()
+                'brave {{bar}}'.toTemplate(),
+                'new'.toTemplate()
             ].toFormatCollection(),
             tokens;
 
@@ -57,13 +57,13 @@
 
     test("Parameter resolution", function () {
         var formatCollection = rubberband.FormatCollection.create({
-                '{{}}'   : rubberband.Format.create({
+                '{{}}'   : rubberband.Template.create({
                     toString: function () {
                         return 'hello {{foo}} world {{bar}} !';
                     }
                 }),
-                '{{foo}}': 'brave {{bar}}'.toFormat(),
-                '{{bar}}': 'new'.toFormat()
+                '{{foo}}': 'brave {{bar}}'.toTemplate(),
+                '{{bar}}': 'new'.toTemplate()
             }),
             resolvedParameters = formatCollection.resolveParameters();
 

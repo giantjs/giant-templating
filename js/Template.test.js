@@ -3,54 +3,54 @@
 (function () {
     "use strict";
 
-    module("Format");
+    module("Template");
 
     test("Instantiation with string literal", function () {
-        var format = rubberband.Format.create('foo');
-        equal(format.serializedFormat, 'foo', "should set serializedFormat property");
+        var template = rubberband.Template.create('foo');
+        equal(template.templateString, 'foo', "should set templateString property");
     });
 
     test("Instantiation with Stringifiable", function () {
         var stringifiable = {},
-            format = rubberband.Format.create(stringifiable);
-        strictEqual(format.serializedFormat, stringifiable,
-            "should set serializedFormat property");
+            template = rubberband.Template.create(stringifiable);
+        strictEqual(template.templateString, stringifiable,
+            "should set templateString property");
     });
 
     test("Conversion from string", function () {
-        var format = 'foo'.toFormat();
+        var template = 'foo'.toTemplate();
 
-        ok(format.isA(rubberband.Format), "should return Format instance");
-        equal(format.serializedFormat, 'foo', "should set serializedFormat property");
+        ok(template.isA(rubberband.Template), "should return Template instance");
+        equal(template.templateString, 'foo', "should set templateString property");
     });
 
-    test("Parsing string literal format with no params", function () {
-        var format = 'foo'.toFormat();
-        equal(format.getTokens(), 'foo', "should return literal");
+    test("Parsing string literal template with no params", function () {
+        var template = 'foo'.toTemplate();
+        equal(template.getTokens(), 'foo', "should return literal");
     });
 
-    test("Parsing string literal format with params", function () {
-        var format = 'foo {{bar}} baz'.toFormat();
-        deepEqual(format.getTokens(), [
+    test("Parsing string literal template with params", function () {
+        var template = 'foo {{bar}} baz'.toTemplate();
+        deepEqual(template.getTokens(), [
             'foo ',
             '{{bar}}',
             ' baz'
         ], "should return parsed array");
     });
 
-    test("Parsing Stringifiable format with no params", function () {
-        var format = rubberband.Format.create({});
-        equal(format.getTokens(), "[object Object]",
+    test("Parsing Stringifiable template with no params", function () {
+        var template = rubberband.Template.create({});
+        equal(template.getTokens(), "[object Object]",
             "should return stringified object");
     });
 
-    test("Parsing Stringifiable format with params", function () {
-        var format = rubberband.Format.create({
+    test("Parsing Stringifiable template with params", function () {
+        var template = rubberband.Template.create({
             toString: function () {
                 return 'foo {{bar}} baz';
             }
         });
-        deepEqual(format.getTokens(), [
+        deepEqual(template.getTokens(), [
             'foo ',
             '{{bar}}',
             ' baz'
@@ -58,10 +58,10 @@
     });
 
     test("Setting string literal content", function () {
-        var format = 'foo {{bar}} baz'.toFormat();
+        var template = 'foo {{bar}} baz'.toTemplate();
 
         equal(
-            format.getResolvedString({
+            template.getResolvedString({
                 '{{bar}}'  : "Hello {{world}}",
                 '{{world}}': "World!"
             }),
@@ -70,10 +70,10 @@
     });
 
     test("Setting empty content", function () {
-        var format = 'foo {{bar}} baz'.toFormat();
+        var template = 'foo {{bar}} baz'.toTemplate();
 
         equal(
-            format.getResolvedString({
+            template.getResolvedString({
                 '{{bar}}': undefined
             }),
             "foo {{bar}} baz",
@@ -81,10 +81,10 @@
     });
 
     test("Setting stringifiable content", function () {
-        var format = 'foo {{bar}} baz'.toFormat();
+        var template = 'foo {{bar}} baz'.toTemplate();
 
         equal(
-            format.getResolvedString({
+            template.getResolvedString({
                 '{{bar}}': {}
             }),
             "foo [object Object] baz",

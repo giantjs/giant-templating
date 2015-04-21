@@ -3,19 +3,19 @@ troop.postpone(rubberband, 'FormatCollection', function (/**rubberband*/widgets)
     "use strict";
 
     /**
-     * @name rubberband.Format.create
+     * @name rubberband.Template.create
      * @function
-     * @param {object|Format[]} [items]
-     * @returns {rubberband.Format}
+     * @param {object|Template[]} [items]
+     * @returns {rubberband.Template}
      */
 
     /**
-     * Collection of Format instances. Allows aggregated token extraction and parameters resolution.
+     * Collection of Template instances. Allows aggregated token extraction and parameters resolution.
      * @class
      * @extends sntls.Collection
-     * @extends rubberband.Format
+     * @extends rubberband.Template
      */
-    rubberband.FormatCollection = sntls.Collection.of(widgets.Format)
+    rubberband.FormatCollection = sntls.Collection.of(widgets.Template)
         .addMethods(/** @lends rubberband.FormatCollection */{
             /**
              * Extracts unique tokens from all formats in the collection.
@@ -42,7 +42,7 @@ troop.postpone(rubberband, 'FormatCollection', function (/**rubberband*/widgets)
             },
 
             /**
-             * Resolves serializedFormat parameters. Returns an object in which each serializedFormat parameter is associated with
+             * Resolves templateString parameters. Returns an object in which each templateString parameter is associated with
              * an array-of-arrays structure holding corresponding string literals.
              * @returns {object}
              */
@@ -50,7 +50,7 @@ troop.postpone(rubberband, 'FormatCollection', function (/**rubberband*/widgets)
                 var allTokens = this.extractUniqueTokens(),
                     tokensCollection = this
                         .mergeWith(allTokens
-                            .callOnEachItem('toFormat')
+                            .callOnEachItem('toTemplate')
                             .toFormatCollection())
                         .getTokens();
 

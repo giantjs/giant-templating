@@ -1,25 +1,25 @@
 /*global dessert, troop, sntls, rubberband */
-troop.postpone(rubberband, 'Format', function () {
+troop.postpone(rubberband, 'Template', function () {
     "use strict";
 
     var base = troop.Base,
         self = base.extend();
 
     /**
-     * @name rubberband.Format.create
+     * @name rubberband.Template.create
      * @function
-     * @param {string} serializedFormat Handlebars - based serializedFormat string.
-     * @returns {rubberband.Format}
+     * @param {string} templateString Handlebars - based templateString string.
+     * @returns {rubberband.Template}
      */
 
     /**
-     * Defines a format with handlebars parameters. The parameters may be substituted
+     * Defines a template with handlebars parameters. The parameters may be substituted
      * with strings and Stringifiable instances.
      * @class
      * @extends troop.Base
      */
-    rubberband.Format = self
-        .addConstants(/** @lends rubberband.Format */{
+    rubberband.Template = self
+        .addConstants(/** @lends rubberband.Template */{
             /**
              * @type {RegExp}
              * @constant
@@ -30,9 +30,9 @@ troop.postpone(rubberband, 'Format', function () {
              * @type {RegExp}
              * @constant
              */
-            RE_FORMAT_SPLITTER: /({{.+?}})/
+            RE_TEMPLATE_SPLITTER: /({{.+?}})/
         })
-        .addPrivateMethods(/** @lends rubberband.Format# */{
+        .addPrivateMethods(/** @lends rubberband.Template# */{
             /**
              * @param {Array} resolvedParameters Array of strings and arrays.
              * @returns {string}
@@ -54,45 +54,46 @@ troop.postpone(rubberband, 'Format', function () {
                 return result;
             }
         })
-        .addMethods(/** @lends rubberband.Format# */{
+        .addMethods(/** @lends rubberband.Template# */{
             /**
-             * @param {string} serializedFormat
+             * @param {string} templateString
              * @ignore
              */
-            init: function (serializedFormat) {
+            init: function (templateString) {
                 /**
-                 * Original serializedFormat string.
+                 * Original templateString string.
                  * @type {string|rubberband.Stringifiable}
                  */
-                this.serializedFormat = serializedFormat;
+                this.templateString = templateString;
             },
 
             /**
-             * Parses current string format value and returns an array of tokens
-             * that make up the format's current value.
+             * Parses current template string and returns an array of tokens
+             * that make up the template's current value.
              * @returns {string|string[]}
              */
             getTokens: function () {
-                var serializedFormatString = this.toString(),
-                    parsedFormat;
+                var serializedTemplate = this.toString(),
+                    parsedTemplate;
 
-                if (this.RE_PARAMETER_TESTER.test(serializedFormatString)) {
-                    return serializedFormatString;
+                if (this.RE_PARAMETER_TESTER.test(serializedTemplate)) {
+                    return serializedTemplate;
                 } else {
-                    parsedFormat = serializedFormatString.split(this.RE_FORMAT_SPLITTER);
-                    return parsedFormat.length > 1 ? parsedFormat : serializedFormatString;
+                    parsedTemplate = serializedTemplate.split(this.RE_TEMPLATE_SPLITTER);
+                    return parsedTemplate.length > 1 ? parsedTemplate : serializedTemplate;
                 }
             },
 
             /**
-             * Resolves the params in the format as well as the replacements and returns the generated string.
+             * Resolves the params in the template as well as the replacements
+             * (which can also carry templates) and returns the generated string.
              * TODO: Use sntls.Collection.mergeInto() as soon as it's ready.
              * @param {object} replacements Placeholder - string / Stringifiable associations.
              * @returns {string}
              */
             getResolvedString: function (replacements) {
                 var resolvedParameters = sntls.Collection
-                    // merging current serializedFormat with replacement values as formats
+                    // merging current templateString with replacement values as templates
                     .create({
                         '{{}}': this
                     })
@@ -101,22 +102,22 @@ troop.postpone(rubberband, 'Format', function () {
                         .filterBySelector(function (replacement) {
                             return typeof replacement !== 'undefined';
                         })
-                        // converting each replacement to Format
-                        .createWithEachItem(rubberband.Format))
+                        // converting each replacement to Template
+                        .createWithEachItem(rubberband.Template))
                     .toFormatCollection()
 
-                    // resolving serializedFormat parameters for main serializedFormat as well as replacements
+                    // resolving templateString parameters for main templateString as well as replacements
                     .resolveParameters();
 
                 return this._flattenResolvedParameters(resolvedParameters['{{}}']);
             },
 
             /**
-             * Stringifies format.
+             * Stringifies template.
              * @returns {string}
              */
             toString: function () {
-                return rubberband.Stringifier.stringify(this.serializedFormat);
+                return rubberband.Stringifier.stringify(this.templateString);
             }
         });
 });
@@ -125,15 +126,15 @@ troop.postpone(rubberband, 'Format', function () {
     "use strict";
 
     dessert.addTypes(/** @lends dessert */{
-        /** @param {rubberband.Format} expr */
-        isFormat: function (expr) {
-            return rubberband.Format.isBaseOf(expr);
+        /** @param {rubberband.Template} expr */
+        isTemplate: function (expr) {
+            return rubberband.Template.isBaseOf(expr);
         },
 
-        /** @param {rubberband.Format} expr */
-        isFormatOptional: function (expr) {
+        /** @param {rubberband.Template} expr */
+        isTemplateOptional: function (expr) {
             return typeof expr === 'undefined' &&
-                   rubberband.Format.isBaseOf(expr);
+                   rubberband.Template.isBaseOf(expr);
         }
     });
 
@@ -141,11 +142,11 @@ troop.postpone(rubberband, 'Format', function () {
         String.prototype,
         /** @lends String# */{
             /**
-             * Converts string to Format instance.
-             * @returns {rubberband.Format}
+             * Converts string to Template instance.
+             * @returns {rubberband.Template}
              */
-            toFormat: function () {
-                return rubberband.Format.create(this.valueOf());
+            toTemplate: function () {
+                return rubberband.Template.create(this.valueOf());
             }
         },
         false, false, false);

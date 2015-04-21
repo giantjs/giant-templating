@@ -7,7 +7,7 @@ module.exports = function (grunt) {
             'js/namespace.js',
             'js/Stringifiable.js',
             'js/Stringifier.js',
-            'js/Format.js',
+            'js/Template.js',
             'js/FormatCollection.js',
             'js/exports.js'
         ],
