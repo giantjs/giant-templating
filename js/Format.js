@@ -13,7 +13,8 @@ troop.postpone(rubberband, 'Format', function () {
      */
 
     /**
-     * Format with handlebars parameters that may be replaced with string literals or other formats.
+     * Defines a format with handlebars parameters. The parameters may be substituted
+     * with strings and Stringifiable instances.
      * @class
      * @extends troop.Base
      */
@@ -23,7 +24,7 @@ troop.postpone(rubberband, 'Format', function () {
              * @type {RegExp}
              * @constant
              */
-            RE_PLACEHOLDER_TESTER: /^{{.+?}}$/,
+            RE_PARAMETER_TESTER: /^{{.+?}}$/,
 
             /**
              * @type {RegExp}
@@ -72,13 +73,10 @@ troop.postpone(rubberband, 'Format', function () {
              * @returns {string|string[]}
              */
             getTokens: function () {
-                var serializedFormat = this.serializedFormat,
-                    serializedFormatString = typeof serializedFormat === 'string' ?
-                        serializedFormat :
-                        serializedFormat.toString(),
+                var serializedFormatString = this.toString(),
                     parsedFormat;
 
-                if (this.RE_PLACEHOLDER_TESTER.test(serializedFormatString)) {
+                if (this.RE_PARAMETER_TESTER.test(serializedFormatString)) {
                     return serializedFormatString;
                 } else {
                     parsedFormat = serializedFormatString.split(this.RE_FORMAT_SPLITTER);
@@ -116,6 +114,29 @@ troop.postpone(rubberband, 'Format', function () {
                     .resolveParameters();
 
                 return this._flattenResolvedParameters(resolvedParameters['{{}}']);
+            },
+
+            /**
+             * Stringifies format.
+             * TODO: Use external stringifier method.
+             * @returns {string}
+             */
+            toString: function () {
+                var serializedFormat = this.serializedFormat;
+                switch (typeof serializedFormat) {
+                case 'string':
+                    return serializedFormat;
+                case 'object':
+                    if (serializedFormat instanceof Object) {
+                        return serializedFormat.toString();
+                    } else {
+                        return '';
+                    }
+                    break;
+                default:
+                case 'undefined':
+                    return '';
+                }
             }
         });
 });
