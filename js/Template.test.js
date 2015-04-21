@@ -26,12 +26,12 @@
 
     test("Extracting tokens from string literal template with no params", function () {
         var template = 'foo'.toTemplate();
-        equal(template.getTokens(), 'foo', "should return literal");
+        equal(template.extractTokens(), 'foo', "should return literal");
     });
 
     test("Extracting tokens from string literal template with params", function () {
         var template = 'foo {{bar}} baz'.toTemplate();
-        deepEqual(template.getTokens(), [
+        deepEqual(template.extractTokens(), [
             'foo ',
             '{{bar}}',
             ' baz'
@@ -40,7 +40,7 @@
 
     test("Extracting tokens from Stringifiable template with no params", function () {
         var template = rubberband.Template.create({});
-        equal(template.getTokens(), "[object Object]",
+        equal(template.extractTokens(), "[object Object]",
             "should return stringified object");
     });
 
@@ -50,7 +50,7 @@
                 return 'foo {{bar}} baz';
             }
         });
-        deepEqual(template.getTokens(), [
+        deepEqual(template.extractTokens(), [
             'foo ',
             '{{bar}}',
             ' baz'

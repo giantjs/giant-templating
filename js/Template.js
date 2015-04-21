@@ -72,7 +72,7 @@ troop.postpone(rubberband, 'Template', function () {
              * that make up the template's current value.
              * @returns {string|string[]}
              */
-            getTokens: function () {
+            extractTokens: function () {
                 var serializedTemplate = this.toString(),
                     parsedTemplate;
 

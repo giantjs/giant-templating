@@ -24,7 +24,7 @@ troop.postpone(rubberband, 'TemplateCollection', function (/**rubberband*/widget
             extractUniqueTokens: function () {
                 return this
                     // concatenating all parsedFormat of all formats in the collection
-                    .callOnEachItem('getTokens')
+                    .callOnEachItem('extractTokens')
                     .getValues()
                     .reduce(function (previous, current) {
                         return previous.concat(current);
@@ -52,7 +52,7 @@ troop.postpone(rubberband, 'TemplateCollection', function (/**rubberband*/widget
                         .mergeWith(allTokens
                             .callOnEachItem('toTemplate')
                             .toTemplateCollection())
-                        .getTokens();
+                        .extractTokens();
 
                 tokensCollection
                     // going through all template tokens and replacing parameter value in each
