@@ -1,5 +1,5 @@
 /*global dessert, troop, sntls, rubberband */
-troop.postpone(rubberband, 'FormatCollection', function (/**rubberband*/widgets) {
+troop.postpone(rubberband, 'TemplateCollection', function (/**rubberband*/widgets) {
     "use strict";
 
     /**
@@ -15,8 +15,8 @@ troop.postpone(rubberband, 'FormatCollection', function (/**rubberband*/widgets)
      * @extends sntls.Collection
      * @extends rubberband.Template
      */
-    rubberband.FormatCollection = sntls.Collection.of(widgets.Template)
-        .addMethods(/** @lends rubberband.FormatCollection */{
+    rubberband.TemplateCollection = sntls.Collection.of(widgets.Template)
+        .addMethods(/** @lends rubberband.TemplateCollection */{
             /**
              * Extracts unique tokens from all formats in the collection.
              * @returns {sntls.Collection}
@@ -51,11 +51,11 @@ troop.postpone(rubberband, 'FormatCollection', function (/**rubberband*/widgets)
                     tokensCollection = this
                         .mergeWith(allTokens
                             .callOnEachItem('toTemplate')
-                            .toFormatCollection())
+                            .toTemplateCollection())
                         .getTokens();
 
                 tokensCollection
-                    // going through all format tokens and replacing parameter value in each
+                    // going through all template tokens and replacing parameter value in each
                     .forEachItem(function (/**string[]*/tokens) {
                         var i, token;
                         if (tokens instanceof Array) {
@@ -76,10 +76,10 @@ troop.amendPostponed(sntls, 'Hash', function () {
 
     sntls.Hash.addMethods(/** @lends sntls.Hash */{
         /**
-         * @returns {rubberband.FormatCollection}
+         * @returns {rubberband.TemplateCollection}
          */
-        toFormatCollection: function () {
-            return rubberband.FormatCollection.create(this.items);
+        toTemplateCollection: function () {
+            return rubberband.TemplateCollection.create(this.items);
         }
     });
 });
@@ -90,9 +90,9 @@ troop.amendPostponed(sntls, 'Hash', function () {
     troop.Properties.addProperties.call(
         Array.prototype,
         /** @lends Array# */{
-            /** @returns {rubberband.FormatCollection} */
-            toFormatCollection: function () {
-                return rubberband.FormatCollection.create(this);
+            /** @returns {rubberband.TemplateCollection} */
+            toTemplateCollection: function () {
+                return rubberband.TemplateCollection.create(this);
             }
         },
         false, false, false);

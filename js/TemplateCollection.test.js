@@ -3,17 +3,17 @@
 (function () {
     "use strict";
 
-    module("FormatCollection");
+    module("TemplateCollection");
 
     test("Conversion from array", function () {
-        var formatCollection = [
+        var templates = [
             'foo'.toTemplate(),
             'bar'.toTemplate(),
             'baz'.toTemplate()
-        ].toFormatCollection();
+        ].toTemplateCollection();
 
-        ok(formatCollection.isA(rubberband.FormatCollection), "should return FormatCollection instance");
-        equal(formatCollection.getKeyCount(), 3, "should preserve item count");
+        ok(templates.isA(rubberband.TemplateCollection), "should return TemplateCollection instance");
+        equal(templates.getKeyCount(), 3, "should preserve item count");
     });
 
     test("Conversion from Hash", function () {
@@ -22,14 +22,14 @@
                 'bar'.toTemplate(),
                 'baz'.toTemplate()
             ].toHash(),
-            formatCollection = hash.toFormatCollection();
+            templates = hash.toTemplateCollection();
 
-        ok(formatCollection.isA(rubberband.FormatCollection), "should return FormatCollection instance");
-        equal(formatCollection.getKeyCount(), 3, "should preserve item count");
+        ok(templates.isA(rubberband.TemplateCollection), "should return TemplateCollection instance");
+        equal(templates.getKeyCount(), 3, "should preserve item count");
     });
 
-    test("Unique token extraction from mixed format collection", function () {
-        var formatCollection = [
+    test("Unique token extraction from mixed template collection", function () {
+        var templates = [
                 rubberband.Template.create({
                     toString: function () {
                         return 'hello {{foo}} world {{bar}} !';
@@ -37,10 +37,10 @@
                 }),
                 'brave {{bar}}'.toTemplate(),
                 'new'.toTemplate()
-            ].toFormatCollection(),
+            ].toTemplateCollection(),
             tokens;
 
-        tokens = formatCollection.extractUniqueTokens();
+        tokens = templates.extractUniqueTokens();
 
         ok(tokens.isA(sntls.Collection), "should return Collection instance");
         deepEqual(tokens.items, {
@@ -52,11 +52,11 @@
             'brave ' : 'brave ',
             ''       : '',
             'new'    : 'new'
-        }, "should return unique tokens in all formats in the collection");
+        }, "should return unique tokens in all templates in the collection");
     });
 
     test("Parameter resolution", function () {
-        var formatCollection = rubberband.FormatCollection.create({
+        var templates = rubberband.TemplateCollection.create({
                 '{{}}'   : rubberband.Template.create({
                     toString: function () {
                         return 'hello {{foo}} world {{bar}} !';
@@ -65,7 +65,7 @@
                 '{{foo}}': 'brave {{bar}}'.toTemplate(),
                 '{{bar}}': 'new'.toTemplate()
             }),
-            resolvedParameters = formatCollection.resolveParameters();
+            resolvedParameters = templates.resolveParameters();
 
         equal(typeof resolvedParameters, 'object', "should return object");
         deepEqual(resolvedParameters, {

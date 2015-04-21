@@ -8,7 +8,7 @@ module.exports = function (grunt) {
             'js/Stringifiable.js',
             'js/Stringifier.js',
             'js/Template.js',
-            'js/FormatCollection.js',
+            'js/TemplateCollection.js',
             'js/exports.js'
         ],
 

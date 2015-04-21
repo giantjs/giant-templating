@@ -104,7 +104,7 @@ troop.postpone(rubberband, 'Template', function () {
                         })
                         // converting each replacement to Template
                         .createWithEachItem(rubberband.Template))
-                    .toFormatCollection()
+                    .toTemplateCollection()
 
                     // resolving templateString parameters for main templateString as well as replacements
                     .resolveParameters();
