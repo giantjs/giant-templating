@@ -118,25 +118,10 @@ troop.postpone(rubberband, 'Format', function () {
 
             /**
              * Stringifies format.
-             * TODO: Use external stringifier method.
              * @returns {string}
              */
             toString: function () {
-                var serializedFormat = this.serializedFormat;
-                switch (typeof serializedFormat) {
-                case 'string':
-                    return serializedFormat;
-                case 'object':
-                    if (serializedFormat instanceof Object) {
-                        return serializedFormat.toString();
-                    } else {
-                        return '';
-                    }
-                    break;
-                default:
-                case 'undefined':
-                    return '';
-                }
+                return rubberband.Stringifier.stringify(this.serializedFormat);
             }
         });
 });

@@ -90,15 +90,4 @@
             "foo [object Object] baz",
             "should return string with stringified parameters");
     });
-
-    test("Serialization", function () {
-        equal('foo'.toFormat().toString(), 'foo',
-            "should return string literal for literal based format");
-        equal(rubberband.Format.create().toString(), '',
-            "should return empty string for undefined based format");
-        equal(rubberband.Format.create(null).toString(), '',
-            "should return empty string for null based format");
-        equal(rubberband.Format.create({}).toString(), '[object Object]',
-            "should return serialized stringifiable for stringifiable based format");
-    });
 }());
