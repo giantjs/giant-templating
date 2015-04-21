@@ -35,16 +35,29 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
 
             /**
              * Merges specified replacements into the template's own replacements buffer.
+             * TODO: Use sntls.Collection.mergeInto() as soon as it's ready.
              * @param {object} replacements
              * @returns {rubberband.LiveTemplate}
              */
             addReplacements: function (replacements) {
                 var keys = Object.keys(replacements),
-                    i, key;
+                    i, key, replacement;
 
                 for (i = 0; i < keys.length; i++) {
                     key = keys[i];
-                    this.replacements[key] = replacements[key];
+                    replacement = replacements[key];
+
+                    if (rubberband.LiveTemplate.isBaseOf(replacement)) {
+                        // when replacement is a LiveTemplate
+                        this.replacements[key] = replacement.templateString;
+
+                        // merging template's replacements onto own
+                        this.addReplacements(replacement.replacements);
+                    } else {
+                        // for any other replacement
+                        // adding single replacement
+                        this.replacements[key] = replacement;
+                    }
                 }
 
                 return this;

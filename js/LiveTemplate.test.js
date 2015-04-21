@@ -29,6 +29,25 @@
         }, "should add replacements to template's replacements buffer");
     });
 
+    test("Live template addition as replacement", function () {
+        var template1 = 'foo {{bar}} baz'.toLiveTemplate()
+                .addReplacements({
+                    '{{bar}}': "BAR"
+                }),
+            template2 = 'Hello {{what}} World!'.toLiveTemplate()
+                .addReplacements({
+                    '{{what}}': template1
+                });
+
+        deepEqual(template2.replacements, {
+            '{{what}}': "foo {{bar}} baz",
+            '{{bar}}': "BAR"
+        }, "should merge replacement template & its replacements to current replacements");
+
+        equal(template2.toString(), "Hello foo BAR baz World!",
+            "should prepare template for correct serialization");
+    });
+
     test("Clearing replacements", function () {
         var template = 'foo {{bar}} baz'.toLiveTemplate()
             .addReplacements({
