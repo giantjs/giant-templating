@@ -8,8 +8,13 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
     /**
      * @name rubberband.LiveTemplate.create
      * @function
-     * @param {string|rubberband.Stringifiable} templateString
+     * @param {string} templateString
      * @returns {rubberband.LiveTemplate}
+     */
+
+    /**
+     * @name rubberband.LiveTemplate#templateString
+     * @type {string}
      */
 
     /**
@@ -20,10 +25,12 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
     rubberband.LiveTemplate = self
         .addMethods(/** @lends rubberband.LiveTemplate# */{
             /**
-             * @param {string|rubberband.Stringifiable} templateString
+             * @param {string} templateString
              * @ignore
              */
             init: function (templateString) {
+                dessert.isString(templateString, "Invalid template string");
+
                 base.init.call(this, templateString);
 
                 /**
