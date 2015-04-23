@@ -6,11 +6,13 @@ troop.postpone(rubberband, 'Template', function () {
         self = base.extend();
 
     /**
+     * Creates a Template instance. Templates may also be created by conversion from string.
      * @name rubberband.Template.create
      * @function
      * @param {string|rubberband.Stringifiable} templateString Either handlebars based string,
      * or object that serializes to one.
      * @returns {rubberband.Template}
+     * @see String#toTemplate
      */
 
     /**

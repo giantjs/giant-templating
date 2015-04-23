@@ -8,14 +8,17 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
             .addTrait(evan.Evented);
 
     /**
+     * Creates a LiveTemplate instance. LiveTemplate instances may also be created from string.
      * @name rubberband.LiveTemplate.create
      * @function
      * @param {string|rubberband.Stringifiable} templateString
      * @returns {rubberband.LiveTemplate}
+     * @see String#toLiveTemplate
      */
 
     /**
      * Template that carries the replacements with it and can be stringified into a resolved template.
+     * LiveTemplate triggers events when changing replacements.
      * @class
      * @extends rubberband.Template
      * @extends sntls.Documented

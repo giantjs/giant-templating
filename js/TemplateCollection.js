@@ -3,14 +3,18 @@ troop.postpone(rubberband, 'TemplateCollection', function (/**rubberband*/widget
     "use strict";
 
     /**
+     * Creates a TemplateCollection instance. TemplateCollections may also be created by conversion
+     * from arrays and Hash instances.
      * @name rubberband.Template.create
      * @function
      * @param {object|Template[]} [items]
      * @returns {rubberband.Template}
+     * @see String#toTemplateCollection
+     * @see sntls.Hash#toTemplateCollection
      */
 
     /**
-     * Collection of Template instances. Allows aggregated token extraction and parameters resolution.
+     * Collection of Template instances. Allows aggregated token extraction and parameter resolution.
      * @class
      * @extends sntls.Collection
      * @extends rubberband.Template
@@ -75,9 +79,7 @@ troop.amendPostponed(sntls, 'Hash', function () {
     "use strict";
 
     sntls.Hash.addMethods(/** @lends sntls.Hash */{
-        /**
-         * @returns {rubberband.TemplateCollection}
-         */
+        /** @returns {rubberband.TemplateCollection} */
         toTemplateCollection: function () {
             return rubberband.TemplateCollection.create(this.items);
         }
