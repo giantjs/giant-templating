@@ -1,6 +1,6 @@
 {
     "name"           : "rubberband",
-    "version"        : "0.1.1",
+    "version"        : "0.1.2",
     "description"    : "String templating",
     "keywords"       : ["template", "live template", "substitution", "replacement", "handlebars"],
     "author"         : "Dan Stocker <dan@kwaia.com>",
@@ -13,7 +13,8 @@
     "dependencies"   : {
         "dessert": "~0.3.2",
         "troop"  : "~0.8.0",
-        "sntls"  : "~0.18.0 || ~0.19.0"
+        "sntls"  : "~0.18.0 || ~0.19.0",
+        "evan"   : "~0.7.0"
     },
     "devDependencies": {
         "phil"                : "~0.2.3",

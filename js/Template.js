@@ -88,7 +88,7 @@ troop.postpone(rubberband, 'Template', function () {
             /**
              * Resolves the params in the template as well as the replacements
              * (which can also carry templates) and returns the generated string.
-             * TODO: Use sntls.Collection.mergeInto() as soon as it's ready.
+             * TODO: Use sntls.Collection.mergeInto() as soon as it's available.
              * @param {object} replacements Placeholder - string / Stringifiable associations.
              * @returns {string}
              */

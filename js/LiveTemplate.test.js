@@ -12,6 +12,7 @@
 
         var template = rubberband.LiveTemplate.create('foo');
         deepEqual(template.replacements, {}, "should set replacements property");
+        ok(template.eventPath.equals(['template', 'foo', template.instanceId].toPath()), "should set event path");
     });
 
     test("Conversion from string", function () {
