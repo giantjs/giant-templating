@@ -6,10 +6,6 @@
     module("LiveTemplate");
 
     test("Instantiation", function () {
-        raises(function () {
-            rubberband.LiveTemplate.create({});
-        }, "should raise exception on non-string argument");
-
         var template = rubberband.LiveTemplate.create('foo');
         deepEqual(template.replacements, {}, "should set replacements property");
         ok(template.eventPath.equals(['template', 'foo', template.instanceId].toPath()), "should set event path");

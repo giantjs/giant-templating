@@ -10,13 +10,8 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
     /**
      * @name rubberband.LiveTemplate.create
      * @function
-     * @param {string} templateString
+     * @param {string|rubberband.Stringifiable} templateString
      * @returns {rubberband.LiveTemplate}
-     */
-
-    /**
-     * @name rubberband.LiveTemplate#templateString
-     * @type {string}
      */
 
     /**
@@ -30,12 +25,10 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
         .setEventSpace(rubberband.templatingEventSpace)
         .addMethods(/** @lends rubberband.LiveTemplate# */{
             /**
-             * @param {string} templateString
+             * @param {string|rubberband.Stringifiable} templateString
              * @ignore
              */
             init: function (templateString) {
-                dessert.isString(templateString, "Invalid template string");
-
                 base.init.call(this, templateString);
                 sntls.Documented.init.call(this);
                 this.setEventPath(['template', templateString, this.instanceId].toPath());
