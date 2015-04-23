@@ -23,6 +23,13 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
      */
     rubberband.LiveTemplate = self
         .setEventSpace(rubberband.templatingEventSpace)
+        .addConstants(/** @lends rubberband.LiveTemplate */{
+            /** @constant */
+            EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE: 'template-replacements-before-change',
+
+            /** @constant */
+            EVENT_TEMPLATE_REPLACEMENTS_CHANGE: 'template-replacements-change'
+        })
         .addMethods(/** @lends rubberband.LiveTemplate# */{
             /**
              * @param {string|rubberband.Stringifiable} templateString
@@ -31,7 +38,7 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
             init: function (templateString) {
                 base.init.call(this, templateString);
                 sntls.Documented.init.call(this);
-                this.setEventPath(['template', templateString, this.instanceId].toPath());
+                this.setEventPath(['template', this.instanceId].toPath());
 
                 /**
                  * Replacements carried by the template.
@@ -50,6 +57,8 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
                 var keys = Object.keys(replacements),
                     i, key, replacement;
 
+                this.triggerSync(this.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
+
                 for (i = 0; i < keys.length; i++) {
                     key = keys[i];
                     replacement = replacements[key];
@@ -67,6 +76,8 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
                     }
                 }
 
+                this.triggerSync(this.EVENT_TEMPLATE_REPLACEMENTS_CHANGE);
+
                 return this;
             },
 
@@ -75,7 +86,9 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
              * @returns {rubberband.LiveTemplate}
              */
             clearReplacements: function () {
+                this.triggerSync(this.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
                 this.replacements = {};
+                this.triggerSync(this.EVENT_TEMPLATE_REPLACEMENTS_CHANGE);
                 return this;
             },
 

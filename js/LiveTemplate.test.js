@@ -8,7 +8,7 @@
     test("Instantiation", function () {
         var template = rubberband.LiveTemplate.create('foo');
         deepEqual(template.replacements, {}, "should set replacements property");
-        ok(template.eventPath.equals(['template', 'foo', template.instanceId].toPath()), "should set event path");
+        ok(template.eventPath.equals(['template', template.instanceId].toPath()), "should set event path");
     });
 
     test("Conversion from string", function () {
@@ -19,7 +19,14 @@
     });
 
     test("Replacement addition", function () {
-        var template = 'foo {{bar}} baz'.toLiveTemplate();
+        var template = 'foo {{bar}} baz'.toLiveTemplate(),
+            eventNames = [];
+
+        template.addMocks({
+            triggerSync: function (eventName) {
+                eventNames.push(eventName);
+            }
+        });
 
         strictEqual(template.addReplacements({
             '{{bar}}': "Hello World"
@@ -28,6 +35,11 @@
         deepEqual(template.replacements, {
             '{{bar}}': "Hello World"
         }, "should add replacements to template's replacements buffer");
+
+        deepEqual(eventNames, [
+            template.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE,
+            template.EVENT_TEMPLATE_REPLACEMENTS_CHANGE
+        ], "should trigger template replacement events");
     });
 
     test("Live template addition as replacement", function () {
@@ -42,7 +54,7 @@
 
         deepEqual(template2.replacements, {
             '{{what}}': "foo {{bar}} baz",
-            '{{bar}}': "BAR"
+            '{{bar}}' : "BAR"
         }, "should merge replacement template & its replacements to current replacements");
 
         equal(template2.toString(), "Hello foo BAR baz World!",
@@ -51,12 +63,24 @@
 
     test("Clearing replacements", function () {
         var template = 'foo {{bar}} baz'.toLiveTemplate()
-            .addReplacements({
-                '{{bar}}': "Hello World"
-            });
+                .addReplacements({
+                    '{{bar}}': "Hello World"
+                }),
+            eventNames = [];
+
+        template.addMocks({
+            triggerSync: function (eventName) {
+                eventNames.push(eventName);
+            }
+        });
 
         strictEqual(template.clearReplacements(), template, "should be chainable");
+
         deepEqual(template.replacements, {}, "should empty replacements buffer");
+        deepEqual(eventNames, [
+            template.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE,
+            template.EVENT_TEMPLATE_REPLACEMENTS_CHANGE
+        ], "should trigger template replacement events");
     });
 
     test("Serialization", function () {
