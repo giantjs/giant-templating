@@ -6,6 +6,8 @@ troop.postpone(rubberband, 'Stringifier', function () {
         self = base.extend();
 
     /**
+     * Serializes variables. Returns strings unchanged, converts numbers and booleans to string,
+     * calls .toString() on Objects, returns empty string for undefined, null, and functions.
      * @class
      * @extends troop.Base
      */
@@ -26,7 +28,11 @@ troop.postpone(rubberband, 'Stringifier', function () {
                         return '';
                     }
                     break;
+                case 'boolean':
+                case 'number':
+                    return String(stringifiable);
                 default:
+                case 'function':
                 case 'undefined':
                     return '';
                 }
