@@ -23,6 +23,7 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
      * @extends rubberband.Template
      * @extends sntls.Documented
      * @extends evan.Evented
+     * @extends rubberband.Stringifiable
      */
     rubberband.LiveTemplate = self
         .setEventSpace(rubberband.templatingEventSpace)
