@@ -1,6 +1,6 @@
 {
     "name"           : "rubberband",
-    "version"        : "0.1.2",
+    "version"        : "0.1.3",
     "description"    : "String templating",
     "keywords"       : ["template", "live template", "substitution", "replacement", "handlebars"],
     "author"         : "Dan Stocker <dan@kwaia.com>",
