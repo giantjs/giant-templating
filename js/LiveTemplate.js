@@ -29,10 +29,10 @@ troop.postpone(rubberband, 'LiveTemplate', function () {
         .setEventSpace(rubberband.templatingEventSpace)
         .addConstants(/** @lends rubberband.LiveTemplate */{
             /** @constant */
-            EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE: 'template-replacements-before-change',
+            EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE: 'rubberband.replacements-change.before',
 
             /** @constant */
-            EVENT_TEMPLATE_REPLACEMENTS_CHANGE: 'template-replacements-change'
+            EVENT_TEMPLATE_REPLACEMENTS_CHANGE: 'rubberband.replacements-change'
         })
         .addMethods(/** @lends rubberband.LiveTemplate# */{
             /**
