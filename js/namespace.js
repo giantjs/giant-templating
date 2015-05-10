@@ -29,9 +29,3 @@ var sntls = sntls || require('sntls');
  * @see https://github.com/danstocker/evan
  */
 var evan = evan || require('evan');
-
-/**
- * @namespace
- * @see https://github.com/kriskowal/q
- */
-var Q = Q || require('q', 'Q');
