@@ -27,7 +27,7 @@ troop.postpone(rubberband, 'Template', function () {
              * @type {RegExp}
              * @constant
              */
-            RE_PARAMETER_TESTER: /^{{.+?}}$/,
+            RE_PARAMETER_TESTER: /^{{[^{}]+}}$/,
 
             /**
              * @type {RegExp}

@@ -38,6 +38,18 @@
         ], "should return parsed array");
     });
 
+    test("Extracting tokens from string literal with params end to end", function () {
+        var template = '{{foo}}{{bar}}'.toTemplate();
+
+        deepEqual(template.extractTokens(), [
+            '',
+            '{{foo}}',
+            '',
+            '{{bar}}',
+            ''
+        ], "should return parsed array");
+    });
+
     test("Extracting tokens from Stringifiable template with no params", function () {
         var template = rubberband.Template.create({});
         equal(template.extractTokens(), "[object Object]",
