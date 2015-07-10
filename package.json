@@ -1,6 +1,6 @@
 {
     "name"           : "rubberband",
-    "version"        : "0.1.6",
+    "version"        : "0.2.0",
     "description"    : "String templating",
     "keywords"       : [
         "template",
@@ -18,10 +18,10 @@
     },
     "dependencies"   : {
         "dessert": "~0.3.2",
-        "evan"   : "~0.7.0",
+        "evan"   : "~0.8.0",
         "q"      : "^1.4.0",
-        "sntls"  : "~0.20.0",
-        "troop"  : "~0.8.0"
+        "sntls"  : "~0.21.0",
+        "troop"  : "~0.9.0"
     },
     "devDependencies": {
         "QUnitAdapter"        : "https://dl.dropboxusercontent.com/u/9258903/packages/QUnitAdapter-0.1.0.tgz",
