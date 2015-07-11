@@ -1,10 +1,10 @@
-/*global dessert, troop, sntls, evan, rubberband */
-troop.postpone(rubberband, 'templatingEventSpace', function () {
+/*global giant, giant, giant, giant, giant */
+giant.postpone(giant, 'templatingEventSpace', function () {
     "use strict";
 
     /**
      * Event space dedicated to templating events.
-     * @type {evan.EventSpace}
+     * @type {giant.EventSpace}
      */
-    rubberband.templatingEventSpace = evan.EventSpace.create();
+    giant.templatingEventSpace = giant.EventSpace.create();
 });

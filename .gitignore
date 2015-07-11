@@ -1,5 +1,5 @@
+/*.tgz
 /.idea/
+/giant-templating.js
 /node_modules/
 /out/
-/rubberband.js
-/*.tgz

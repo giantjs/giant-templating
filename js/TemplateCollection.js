@@ -1,29 +1,29 @@
-/*global dessert, troop, sntls, rubberband */
-troop.postpone(rubberband, 'TemplateCollection', function (/**rubberband*/widgets) {
+/*global giant, giant, giant, giant */
+giant.postpone(giant, 'TemplateCollection', function (/**giant*/widgets) {
     "use strict";
 
     /**
      * Creates a TemplateCollection instance. TemplateCollections may also be created by conversion
      * from arrays and Hash instances.
-     * @name rubberband.Template.create
+     * @name giant.Template.create
      * @function
      * @param {object|Template[]} [items]
-     * @returns {rubberband.Template}
+     * @returns {giant.Template}
      * @see String#toTemplateCollection
-     * @see sntls.Hash#toTemplateCollection
+     * @see giant.Hash#toTemplateCollection
      */
 
     /**
      * Collection of Template instances. Allows aggregated token extraction and parameter resolution.
      * @class
-     * @extends sntls.Collection
-     * @extends rubberband.Template
+     * @extends giant.Collection
+     * @extends giant.Template
      */
-    rubberband.TemplateCollection = sntls.Collection.of(widgets.Template)
-        .addMethods(/** @lends rubberband.TemplateCollection */{
+    giant.TemplateCollection = giant.Collection.of(widgets.Template)
+        .addMethods(/** @lends giant.TemplateCollection */{
             /**
              * Extracts unique tokens from all formats in the collection.
-             * @returns {sntls.Collection}
+             * @returns {giant.Collection}
              */
             extractUniqueTokens: function () {
                 return this
@@ -75,13 +75,13 @@ troop.postpone(rubberband, 'TemplateCollection', function (/**rubberband*/widget
         });
 });
 
-troop.amendPostponed(sntls, 'Hash', function () {
+giant.amendPostponed(giant, 'Hash', function () {
     "use strict";
 
-    sntls.Hash.addMethods(/** @lends sntls.Hash */{
-        /** @returns {rubberband.TemplateCollection} */
+    giant.Hash.addMethods(/** @lends giant.Hash */{
+        /** @returns {giant.TemplateCollection} */
         toTemplateCollection: function () {
-            return rubberband.TemplateCollection.create(this.items);
+            return giant.TemplateCollection.create(this.items);
         }
     });
 });
@@ -89,12 +89,12 @@ troop.amendPostponed(sntls, 'Hash', function () {
 (function () {
     "use strict";
 
-    troop.Properties.addProperties.call(
+    giant.Properties.addProperties.call(
         Array.prototype,
         /** @lends Array# */{
-            /** @returns {rubberband.TemplateCollection} */
+            /** @returns {giant.TemplateCollection} */
             toTemplateCollection: function () {
-                return rubberband.TemplateCollection.create(this);
+                return giant.TemplateCollection.create(this);
             }
         },
         false, false, false);

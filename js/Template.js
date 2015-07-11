@@ -1,17 +1,17 @@
-/*global dessert, troop, sntls, rubberband */
-troop.postpone(rubberband, 'Template', function () {
+/*global giant, giant, giant, giant */
+giant.postpone(giant, 'Template', function () {
     "use strict";
 
-    var base = troop.Base,
+    var base = giant.Base,
         self = base.extend();
 
     /**
      * Creates a Template instance. Templates may also be created by conversion from string.
-     * @name rubberband.Template.create
+     * @name giant.Template.create
      * @function
-     * @param {string|rubberband.Stringifiable} templateString Either handlebars based string,
+     * @param {string|giant.Stringifiable} templateString Either handlebars based string,
      * or object that serializes to one.
-     * @returns {rubberband.Template}
+     * @returns {giant.Template}
      * @see String#toTemplate
      */
 
@@ -19,10 +19,10 @@ troop.postpone(rubberband, 'Template', function () {
      * Defines a template with handlebars parameters. Parameters may be replaced
      * with strings and Stringifiable instances.
      * @class
-     * @extends troop.Base
+     * @extends giant.Base
      */
-    rubberband.Template = self
-        .addConstants(/** @lends rubberband.Template */{
+    giant.Template = self
+        .addConstants(/** @lends giant.Template */{
             /**
              * @type {RegExp}
              * @constant
@@ -35,7 +35,7 @@ troop.postpone(rubberband, 'Template', function () {
              */
             RE_TEMPLATE_SPLITTER: /({{.+?}})/
         })
-        .addPrivateMethods(/** @lends rubberband.Template# */{
+        .addPrivateMethods(/** @lends giant.Template# */{
             /**
              * @param {Array} resolvedParameters Array of strings and arrays.
              * @returns {string}
@@ -57,15 +57,15 @@ troop.postpone(rubberband, 'Template', function () {
                 return result;
             }
         })
-        .addMethods(/** @lends rubberband.Template# */{
+        .addMethods(/** @lends giant.Template# */{
             /**
-             * @param {string|rubberband.Stringifiable} templateString
+             * @param {string|giant.Stringifiable} templateString
              * @ignore
              */
             init: function (templateString) {
                 /**
                  * Original templateString string.
-                 * @type {string|rubberband.Stringifiable}
+                 * @type {string|giant.Stringifiable}
                  */
                 this.templateString = templateString;
             },
@@ -76,7 +76,7 @@ troop.postpone(rubberband, 'Template', function () {
              * @returns {string|string[]}
              */
             extractTokens: function () {
-                var serializedTemplate = rubberband.Stringifier.stringify(this.templateString),
+                var serializedTemplate = giant.Stringifier.stringify(this.templateString),
                     parsedTemplate;
 
                 if (this.RE_PARAMETER_TESTER.test(serializedTemplate)) {
@@ -90,23 +90,23 @@ troop.postpone(rubberband, 'Template', function () {
             /**
              * Resolves the params in the template as well as the replacements
              * (which can also carry templates) and returns the generated string.
-             * TODO: Use sntls.Collection.mergeInto() as soon as it's available.
+             * TODO: Use giant.Collection.mergeInto() as soon as it's available.
              * @param {object} replacements Placeholder - string / Stringifiable associations.
              * @returns {string}
              */
             getResolvedString: function (replacements) {
-                var resolvedParameters = sntls.Collection
+                var resolvedParameters = giant.Collection
                     // merging current templateString with replacement values as templates
                     .create({
                         '{{}}': this
                     })
-                    .mergeWith(sntls.Collection.create(replacements)
+                    .mergeWith(giant.Collection.create(replacements)
                         // discarding value-less replacements
                         .filterBySelector(function (replacement) {
                             return typeof replacement !== 'undefined';
                         })
                         // converting each replacement to Template
-                        .createWithEachItem(rubberband.Template))
+                        .createWithEachItem(giant.Template))
                     .toTemplateCollection()
 
                     // resolving templateString parameters for main templateString as well as replacements
@@ -120,7 +120,7 @@ troop.postpone(rubberband, 'Template', function () {
              * @returns {string}
              */
             toString: function () {
-                return rubberband.Stringifier.stringify(this.templateString);
+                return giant.Stringifier.stringify(this.templateString);
             }
         });
 });
@@ -128,28 +128,28 @@ troop.postpone(rubberband, 'Template', function () {
 (function () {
     "use strict";
 
-    dessert.addTypes(/** @lends dessert */{
-        /** @param {rubberband.Template} expr */
+    giant.addTypes(/** @lends giant */{
+        /** @param {giant.Template} expr */
         isTemplate: function (expr) {
-            return rubberband.Template.isBaseOf(expr);
+            return giant.Template.isBaseOf(expr);
         },
 
-        /** @param {rubberband.Template} expr */
+        /** @param {giant.Template} expr */
         isTemplateOptional: function (expr) {
             return typeof expr === 'undefined' &&
-                   rubberband.Template.isBaseOf(expr);
+                   giant.Template.isBaseOf(expr);
         }
     });
 
-    troop.Properties.addProperties.call(
+    giant.Properties.addProperties.call(
         String.prototype,
         /** @lends String# */{
             /**
              * Converts string to Template instance.
-             * @returns {rubberband.Template}
+             * @returns {giant.Template}
              */
             toTemplate: function () {
-                return rubberband.Template.create(this.valueOf());
+                return giant.Template.create(this.valueOf());
             }
         },
         false, false, false);

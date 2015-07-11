@@ -1,18 +1,18 @@
-/*global dessert, troop, sntls, rubberband */
-troop.postpone(rubberband, 'Stringifier', function () {
+/*global giant, giant, giant, giant */
+giant.postpone(giant, 'Stringifier', function () {
     "use strict";
 
-    var base = troop.Base,
+    var base = giant.Base,
         self = base.extend();
 
     /**
      * Serializes variables. Returns strings unchanged, converts numbers and booleans to string,
      * calls .toString() on Objects, returns empty string for undefined, null, and functions.
      * @class
-     * @extends troop.Base
+     * @extends giant.Base
      */
-    rubberband.Stringifier = self
-        .addMethods(/** @lends rubberband.Stringifier# */{
+    giant.Stringifier = self
+        .addMethods(/** @lends giant.Stringifier# */{
             /**
              * @param {*} [stringifiable]
              * @returns {string}

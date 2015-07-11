@@ -1,4 +1,4 @@
-/*global dessert, troop, sntls, rubberband */
+/*global giant, giant, giant, giant */
 /*global module, test, asyncTest, start, expect, ok, equal, strictEqual, notStrictEqual, deepEqual, notDeepEqual, raises */
 (function () {
     "use strict";
@@ -12,7 +12,7 @@
             'baz'.toTemplate()
         ].toTemplateCollection();
 
-        ok(templates.isA(rubberband.TemplateCollection), "should return TemplateCollection instance");
+        ok(templates.isA(giant.TemplateCollection), "should return TemplateCollection instance");
         equal(templates.getKeyCount(), 3, "should preserve item count");
     });
 
@@ -24,13 +24,13 @@
             ].toHash(),
             templates = hash.toTemplateCollection();
 
-        ok(templates.isA(rubberband.TemplateCollection), "should return TemplateCollection instance");
+        ok(templates.isA(giant.TemplateCollection), "should return TemplateCollection instance");
         equal(templates.getKeyCount(), 3, "should preserve item count");
     });
 
     test("Unique token extraction from mixed template collection", function () {
         var templates = [
-                rubberband.Template.create({
+                giant.Template.create({
                     toString: function () {
                         return 'hello {{foo}} world {{bar}} !';
                     }
@@ -42,7 +42,7 @@
 
         tokens = templates.extractUniqueTokens();
 
-        ok(tokens.isA(sntls.Collection), "should return Collection instance");
+        ok(tokens.isA(giant.Collection), "should return Collection instance");
         deepEqual(tokens.items, {
             'hello ' : 'hello ',
             '{{foo}}': '{{foo}}',
@@ -56,8 +56,8 @@
     });
 
     test("Parameter resolution", function () {
-        var templates = rubberband.TemplateCollection.create({
-                '{{}}'   : rubberband.Template.create({
+        var templates = giant.TemplateCollection.create({
+                '{{}}'   : giant.Template.create({
                     toString: function () {
                         return 'hello {{foo}} world {{bar}} !';
                     }

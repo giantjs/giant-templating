@@ -1,7 +1,7 @@
 /**
  * Library exports
  */
-/*global rubberband, module */
+/*global giant, module */
 if (typeof module === 'object') {
-    module.exports = rubberband;
+    module.exports = giant;
 }

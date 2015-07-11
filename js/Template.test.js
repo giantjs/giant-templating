@@ -1,4 +1,4 @@
-/*global dessert, troop, sntls, rubberband */
+/*global giant, giant, giant, giant */
 /*global module, test, asyncTest, start, expect, ok, equal, strictEqual, notStrictEqual, deepEqual, notDeepEqual, raises */
 (function () {
     "use strict";
@@ -6,13 +6,13 @@
     module("Template");
 
     test("Instantiation with string literal", function () {
-        var template = rubberband.Template.create('foo');
+        var template = giant.Template.create('foo');
         equal(template.templateString, 'foo', "should set templateString property");
     });
 
     test("Instantiation with Stringifiable", function () {
         var stringifiable = {},
-            template = rubberband.Template.create(stringifiable);
+            template = giant.Template.create(stringifiable);
         strictEqual(template.templateString, stringifiable,
             "should set templateString property");
     });
@@ -20,7 +20,7 @@
     test("Conversion from string", function () {
         var template = 'foo'.toTemplate();
 
-        ok(template.isA(rubberband.Template), "should return Template instance");
+        ok(template.isA(giant.Template), "should return Template instance");
         equal(template.templateString, 'foo', "should set templateString property");
     });
 
@@ -51,13 +51,13 @@
     });
 
     test("Extracting tokens from Stringifiable template with no params", function () {
-        var template = rubberband.Template.create({});
+        var template = giant.Template.create({});
         equal(template.extractTokens(), "[object Object]",
             "should return stringified object");
     });
 
     test("Extracting tokens from Stringifiable template with params", function () {
-        var template = rubberband.Template.create({
+        var template = giant.Template.create({
             toString: function () {
                 return 'foo {{bar}} baz';
             }

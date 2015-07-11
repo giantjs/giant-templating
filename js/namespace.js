@@ -1,31 +1,11 @@
-/**
- * Top-Level Library Namespace
- */
-/*global require */
+/*jshint node:true */
+
 /** @namespace */
-var rubberband = {},
-    r$ = rubberband;
+var giant = giant || require('giant-namespace');
 
-/**
- * @class
- * @see https://github.com/production-minds/dessert
- */
-var dessert = dessert || require('dessert');
-
-/**
- * @namespace
- * @see https://github.com/danstocker/troop
- */
-var troop = troop || require('troop');
-
-/**
- * @namespace
- * @see https://github.com/danstocker/sntls
- */
-var sntls = sntls || require('sntls');
-
-/**
- * @namespace
- * @see https://github.com/danstocker/evan
- */
-var evan = evan || require('evan');
+if (module.exports) {
+    require('giant-assertion');
+    require('giant-oop');
+    require('giant-data');
+    require('giant-event');
+}

@@ -1,4 +1,4 @@
-/*global dessert, troop, sntls, rubberband */
+/*global giant, giant, giant, giant */
 /*global module, test, asyncTest, start, expect, ok, equal, strictEqual, notStrictEqual, deepEqual, notDeepEqual, raises */
 (function () {
     "use strict";
@@ -6,7 +6,7 @@
     module("LiveTemplate");
 
     test("Instantiation", function () {
-        var template = rubberband.LiveTemplate.create('foo');
+        var template = giant.LiveTemplate.create('foo');
         deepEqual(template.replacements, {}, "should set replacements property");
         ok(template.eventPath.equals(['template', template.instanceId].toPath()), "should set event path");
     });
@@ -14,7 +14,7 @@
     test("Conversion from string", function () {
         var template = 'foo'.toLiveTemplate();
 
-        ok(template.isA(rubberband.LiveTemplate), "should return LiveTemplate instance");
+        ok(template.isA(giant.LiveTemplate), "should return LiveTemplate instance");
         deepEqual(template.replacements, {}, "should set replacements property");
     });
 
