@@ -20,6 +20,7 @@
         "giant-assertion": "0.0.3",
         "giant-data"     : "0.0.3",
         "giant-event"    : "0.0.3",
+        "giant-namespace": "0.0.3",
         "giant-oop"      : "0.0.3",
         "q"              : "^1.4.0"
     },
@@ -34,8 +35,7 @@
         "grunt-jstestdriver"  : "git://github.com/danstocker/grunt-jstestdriver.git",
         "grunt-regex-replace" : "~0.2.6",
         "grunt-yui-compressor": "~0.4.0",
-        "phil"                : "~0.2.3",
-        "q"                   : "^1.4.0"
+        "phil"                : "~0.2.3"
     },
     "files"          : [
         "giant-templating.js"
