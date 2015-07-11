@@ -1,6 +1,6 @@
 {
-    "name"           : "rubberband",
-    "version"        : "0.2.0",
+    "name"           : "giant-templating",
+    "version"        : "0.0.3",
     "description"    : "String templating",
     "keywords"       : [
         "template",
@@ -14,7 +14,7 @@
     "license"        : "MIT",
     "repository"     : {
         "type": "git",
-        "url" : "https://github.com/danstocker/rubberband.git"
+        "url" : "git@github.com:giantjs/giant-templating.git"
     },
     "dependencies"   : {
         "dessert": "~0.3.2",
