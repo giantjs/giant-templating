@@ -6,8 +6,6 @@ module.exports = function (grunt) {
         files: [
             'src/namespace.js',
             'src/templatingEventSpace.js',
-            'src/Stringifiable.js',
-            'src/Stringifier.js',
             'src/Template.js',
             'src/TemplateCollection.js',
             'src/LiveTemplate.js',
