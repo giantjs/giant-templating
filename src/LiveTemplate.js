@@ -117,20 +117,17 @@ giant.postpone(giant, 'LiveTemplate', function () {
         /** @param {giant.LiveTemplate} expr */
         isLiveTemplateOptional: function (expr) {
             return typeof expr === 'undefined' &&
-                   giant.LiveTemplate.isBaseOf(expr);
+                giant.LiveTemplate.isBaseOf(expr);
         }
     });
 
-    giant.Properties.addProperties.call(
-        String.prototype,
-        /** @lends String# */{
-            /**
-             * Converts string to LiveTemplate instance.
-             * @returns {giant.LiveTemplate}
-             */
-            toLiveTemplate: function () {
-                return giant.LiveTemplate.create(this.valueOf());
-            }
-        },
-        false, false, false);
+    giant.extendBuiltIn(String.prototype, /** @lends String# */{
+        /**
+         * Converts string to LiveTemplate instance.
+         * @returns {giant.LiveTemplate}
+         */
+        toLiveTemplate: function () {
+            return giant.LiveTemplate.create(this.valueOf());
+        }
+    });
 }());

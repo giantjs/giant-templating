@@ -89,13 +89,10 @@ giant.amendPostponed(giant, 'Hash', function () {
 (function () {
     "use strict";
 
-    giant.Properties.addProperties.call(
-        Array.prototype,
-        /** @lends Array# */{
-            /** @returns {giant.TemplateCollection} */
-            toTemplateCollection: function () {
-                return giant.TemplateCollection.create(this);
-            }
-        },
-        false, false, false);
+    giant.extendBuiltIn(Array.prototype, /** @lends Array# */{
+        /** @returns {giant.TemplateCollection} */
+        toTemplateCollection: function () {
+            return giant.TemplateCollection.create(this);
+        }
+    });
 }());

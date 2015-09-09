@@ -137,20 +137,17 @@ giant.postpone(giant, 'Template', function () {
         /** @param {giant.Template} expr */
         isTemplateOptional: function (expr) {
             return typeof expr === 'undefined' &&
-                   giant.Template.isBaseOf(expr);
+                giant.Template.isBaseOf(expr);
         }
     });
 
-    giant.Properties.addProperties.call(
-        String.prototype,
-        /** @lends String# */{
-            /**
-             * Converts string to Template instance.
-             * @returns {giant.Template}
-             */
-            toTemplate: function () {
-                return giant.Template.create(this.valueOf());
-            }
-        },
-        false, false, false);
+    giant.extendBuiltIn(String.prototype, /** @lends String# */{
+        /**
+         * Converts string to Template instance.
+         * @returns {giant.Template}
+         */
+        toTemplate: function () {
+            return giant.Template.create(this.valueOf());
+        }
+    });
 }());
