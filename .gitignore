@@ -1,5 +1,4 @@
 /*.tgz
 /.idea/
-/giant-templating.js
 /node_modules/
-/out/
+/lib/

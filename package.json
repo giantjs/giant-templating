@@ -27,7 +27,7 @@
   },
   "devDependencies": {},
   "files": [
-    "giant-templating.js"
+    "lib"
   ],
-  "main": "giant-templating.js"
+  "main": "lib/giant-templating.js"
 }
