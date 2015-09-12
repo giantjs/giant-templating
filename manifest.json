@@ -1,0 +1,14 @@
+{
+  "main": {
+    "assets": {
+      "js": [
+        "src/namespace.js",
+        "src/templatingEventSpace.def.js",
+        "src/Template.def.js",
+        "src/TemplateCollection.def.js",
+        "src/LiveTemplate.def.js",
+        "src/exports.js"
+      ]
+    }
+  }
+}
