@@ -29,10 +29,10 @@ giant.postpone(giant, 'LiveTemplate', function () {
         .setEventSpace(giant.templatingEventSpace)
         .addConstants(/** @lends giant.LiveTemplate */{
             /** @constant */
-            EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE: 'giant.replacements-change.before',
+            EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE: 'giant.LiveTemplate.replacements.change.before',
 
             /** @constant */
-            EVENT_TEMPLATE_REPLACEMENTS_CHANGE: 'giant.replacements-change'
+            EVENT_TEMPLATE_REPLACEMENTS_CHANGE: 'giant.LiveTemplate.replacements.change'
         })
         .addMethods(/** @lends giant.LiveTemplate# */{
             /**
@@ -61,7 +61,7 @@ giant.postpone(giant, 'LiveTemplate', function () {
                 var keys = Object.keys(replacements),
                     i, key, replacement;
 
-                this.triggerSync(this.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
+                this.triggerSync(self.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
 
                 for (i = 0; i < keys.length; i++) {
                     key = keys[i];
