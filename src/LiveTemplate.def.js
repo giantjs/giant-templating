@@ -27,13 +27,6 @@ giant.postpone(giant, 'LiveTemplate', function () {
      */
     giant.LiveTemplate = self
         .setEventSpace(giant.templatingEventSpace)
-        .addConstants(/** @lends giant.LiveTemplate */{
-            /** @constant */
-            EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE: 'giant.LiveTemplate.replacements.change.before',
-
-            /** @constant */
-            EVENT_TEMPLATE_REPLACEMENTS_CHANGE: 'giant.LiveTemplate.replacements.change'
-        })
         .addMethods(/** @lends giant.LiveTemplate# */{
             /**
              * @param {string|giant.Stringifiable} templateString
@@ -61,7 +54,7 @@ giant.postpone(giant, 'LiveTemplate', function () {
                 var keys = Object.keys(replacements),
                     i, key, replacement;
 
-                this.triggerSync(self.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
+                this.triggerSync(giant.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
 
                 for (i = 0; i < keys.length; i++) {
                     key = keys[i];
@@ -80,7 +73,7 @@ giant.postpone(giant, 'LiveTemplate', function () {
                     }
                 }
 
-                this.triggerSync(this.EVENT_TEMPLATE_REPLACEMENTS_CHANGE);
+                this.triggerSync(giant.EVENT_TEMPLATE_REPLACEMENTS_CHANGE);
 
                 return this;
             },
@@ -90,9 +83,9 @@ giant.postpone(giant, 'LiveTemplate', function () {
              * @returns {giant.LiveTemplate}
              */
             clearReplacements: function () {
-                this.triggerSync(this.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
+                this.triggerSync(giant.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
                 this.replacements = {};
-                this.triggerSync(this.EVENT_TEMPLATE_REPLACEMENTS_CHANGE);
+                this.triggerSync(giant.EVENT_TEMPLATE_REPLACEMENTS_CHANGE);
                 return this;
             },
 
@@ -107,6 +100,18 @@ giant.postpone(giant, 'LiveTemplate', function () {
 
 (function () {
     "use strict";
+
+    /**
+     * Signals that replacements in a template are about to change.
+     * @constant
+     */
+    giant.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE = 'giant.LiveTemplate.replacements.change.before';
+
+    /**
+     * Signals that replacements in a template changed.
+     * @constant
+     */
+    giant.EVENT_TEMPLATE_REPLACEMENTS_CHANGE = 'giant.LiveTemplate.replacements.change';
 
     giant.addTypes(/** @lends giant */{
         /** @param {giant.LiveTemplate} expr */

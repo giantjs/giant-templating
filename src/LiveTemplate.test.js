@@ -36,8 +36,8 @@
         }, "should add replacements to template's replacements buffer");
 
         deepEqual(eventNames, [
-            template.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE,
-            template.EVENT_TEMPLATE_REPLACEMENTS_CHANGE
+            giant.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE,
+            giant.EVENT_TEMPLATE_REPLACEMENTS_CHANGE
         ], "should trigger template replacement events");
     });
 
@@ -77,8 +77,8 @@
 
         deepEqual(template.replacements, {}, "should empty replacements buffer");
         deepEqual(eventNames, [
-            template.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE,
-            template.EVENT_TEMPLATE_REPLACEMENTS_CHANGE
+            giant.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE,
+            giant.EVENT_TEMPLATE_REPLACEMENTS_CHANGE
         ], "should trigger template replacement events");
     });
 
