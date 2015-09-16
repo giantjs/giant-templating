@@ -101,17 +101,19 @@ giant.postpone(giant, 'LiveTemplate', function () {
 (function () {
     "use strict";
 
-    /**
-     * Signals that replacements in a template are about to change.
-     * @constant
-     */
-    giant.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE = 'giant.LiveTemplate.replacements.change.before';
+    giant.addGlobalConstants(/** @lends giant */{
+        /**
+         * Signals that replacements in a template are about to change.
+         * @constant
+         */
+        EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE: 'giant.LiveTemplate.replacements.change.before',
 
-    /**
-     * Signals that replacements in a template changed.
-     * @constant
-     */
-    giant.EVENT_TEMPLATE_REPLACEMENTS_CHANGE = 'giant.LiveTemplate.replacements.change';
+        /**
+         * Signals that replacements in a template changed.
+         * @constant
+         */
+        EVENT_TEMPLATE_REPLACEMENTS_CHANGE: 'giant.LiveTemplate.replacements.change'
+    });
 
     giant.addTypes(/** @lends giant */{
         /** @param {giant.LiveTemplate} expr */
