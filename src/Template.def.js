@@ -27,6 +27,12 @@ giant.postpone(giant, 'Template', function () {
              * @type {RegExp}
              * @constant
              */
+            RE_PARAMETER: /{{[^{}]+}}/g,
+
+            /**
+             * @type {RegExp}
+             * @constant
+             */
             RE_PARAMETER_TESTER: /^{{[^{}]+}}$/,
 
             /**
@@ -55,6 +61,41 @@ giant.postpone(giant, 'Template', function () {
                 }
 
                 return result;
+            },
+
+            /**
+             * @param {object} parameterValues
+             * @returns {string}
+             * @private
+             */
+            _resolveParameters: function (parameterValues) {
+                var parameterValuesAsTemplates = giant.Collection.create(parameterValues)
+                        // discarding undefined parameter values
+                        .filterBySelector(function (parameterValue) {
+                            return typeof parameterValue !== 'undefined';
+                        })
+                        // converting each parameter value to Template
+                        .createWithEachItem(giant.Template),
+                    resolvedParameters = giant.Collection
+                        // merging current templateString with parameter values as templates
+                        .create({
+                            '{{}}': this
+                        })
+                        .mergeIn(parameterValuesAsTemplates)
+                        .toTemplateCollection()
+
+                        // resolving templateString parameters for main templateString as well as parameter values
+                        .resolveParameters();
+
+                return this._flattenResolvedParameters(resolvedParameters['{{}}']);
+            },
+
+            /**
+             * @returns {string}
+             * @private
+             */
+            _clearParameters: function () {
+                return this.templateString.replace(self.RE_PARAMETER, '');
             }
         })
         .addMethods(/** @lends giant.Template# */{
@@ -79,40 +120,27 @@ giant.postpone(giant, 'Template', function () {
                 var serializedTemplate = giant.Stringifier.stringify(this.templateString),
                     parsedTemplate;
 
-                if (this.RE_PARAMETER_TESTER.test(serializedTemplate)) {
+                if (self.RE_PARAMETER_TESTER.test(serializedTemplate)) {
                     return serializedTemplate;
                 } else {
-                    parsedTemplate = serializedTemplate.split(this.RE_TEMPLATE_SPLITTER);
+                    parsedTemplate = serializedTemplate.split(self.RE_TEMPLATE_SPLITTER);
                     return parsedTemplate.length > 1 ? parsedTemplate : serializedTemplate;
                 }
             },
 
             /**
-             * Resolves the params in the template as well as the replacements
+             * Resolves parameters in the template as well as in the specified parameter values
              * (which can also carry templates) and returns the generated string.
-             * TODO: Use giant.Collection.mergeInto() as soon as it's available.
-             * @param {object} replacements Placeholder - string / Stringifiable associations.
+             * @param {object} [parameterValues] Parameter name - parameter value (string / Stringifiable) associations.
+             * When omitted, parameters will be replaced with empty string.
              * @returns {string}
              */
-            getResolvedString: function (replacements) {
-                var resolvedParameters = giant.Collection
-                    // merging current templateString with replacement values as templates
-                    .create({
-                        '{{}}': this
-                    })
-                    .mergeWith(giant.Collection.create(replacements)
-                        // discarding value-less replacements
-                        .filterBySelector(function (replacement) {
-                            return typeof replacement !== 'undefined';
-                        })
-                        // converting each replacement to Template
-                        .createWithEachItem(giant.Template))
-                    .toTemplateCollection()
-
-                    // resolving templateString parameters for main templateString as well as replacements
-                    .resolveParameters();
-
-                return this._flattenResolvedParameters(resolvedParameters['{{}}']);
+            getResolvedString: function (parameterValues) {
+                if (parameterValues) {
+                    return this._resolveParameters(parameterValues);
+                } else {
+                    return this._clearParameters();
+                }
             },
 
             /**

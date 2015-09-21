@@ -101,4 +101,13 @@
             "foo [object Object] baz",
             "should return string with stringified parameters");
     });
+
+    test("Resolving template with no content", function () {
+        var template = 'foo {{bar}} baz'.toTemplate();
+
+        equal(
+            template.getResolvedString(),
+            "foo  baz",
+            "should return string with empty string for parameters");
+    });
 }());
