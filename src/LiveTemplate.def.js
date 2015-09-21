@@ -27,7 +27,7 @@ giant.postpone(giant, 'LiveTemplate', function () {
      * @extends giant.Stringifiable
      */
     giant.LiveTemplate = self
-        .setEventSpace(giant.templatingEventSpace)
+        .setEventSpace(giant.eventSpace)
         .addMethods(/** @lends giant.LiveTemplate# */{
             /**
              * @param {string|giant.Stringifiable} templateString
