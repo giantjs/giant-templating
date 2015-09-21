@@ -17,8 +17,8 @@ giant.postpone(giant, 'LiveTemplate', function () {
      */
 
     /**
-     * Template that carries the replacements with it and can be stringified into a resolved template.
-     * LiveTemplate triggers events when changing replacements.
+     * Template that carries the parameter values with it and can be stringified into a resolved template.
+     * LiveTemplate triggers events when changing parameter values.
      * @class
      * @extends giant.Template
      * @extends giant.Documented
@@ -38,54 +38,55 @@ giant.postpone(giant, 'LiveTemplate', function () {
                 this.setEventPath(['template', this.instanceId].toPath());
 
                 /**
-                 * Replacements carried by the template.
+                 * Parameter values carried by the template.
                  * @type {object}
                  */
-                this.replacements = {};
+                this.parameterValues = {};
             },
 
             /**
-             * Merges specified replacements into the template's own replacements buffer.
-             * TODO: Use giant.Collection.mergeInto() as soon as it's available.
-             * @param {object} replacements
+             * Merges specified parameter values into the template's own set of parameter values.
+             * New values overwrite old values associated with the same parameter.
+             * @param {object} parameterValues
              * @returns {giant.LiveTemplate}
              */
-            addReplacements: function (replacements) {
-                var keys = Object.keys(replacements),
-                    i, key, replacement;
+            setParameterValues: function (parameterValues) {
+                var parameterNames = Object.keys(parameterValues),
+                    parameterCount = parameterNames.length,
+                    i, key, parameterValue;
 
-                this.triggerSync(giant.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
+                this.triggerSync(giant.EVENT_TEMPLATE_PARAMETER_VALUES_BEFORE_CHANGE);
 
-                for (i = 0; i < keys.length; i++) {
-                    key = keys[i];
-                    replacement = replacements[key];
+                for (i = 0; i < parameterCount; i++) {
+                    key = parameterNames[i];
+                    parameterValue = parameterValues[key];
 
-                    if (giant.LiveTemplate.isBaseOf(replacement)) {
-                        // when replacement is a LiveTemplate
-                        this.replacements[key] = replacement.templateString;
+                    if (giant.LiveTemplate.isBaseOf(parameterValue)) {
+                        // when parameter value is a LiveTemplate
+                        this.parameterValues[key] = parameterValue.templateString;
 
-                        // merging template's replacements onto own
-                        this.addReplacements(replacement.replacements);
+                        // merging template's parameter value onto own
+                        this.setParameterValues(parameterValue.parameterValues);
                     } else {
-                        // for any other replacement
-                        // adding single replacement
-                        this.replacements[key] = replacement;
+                        // for any other parameter type
+                        // adding single parameter value
+                        this.parameterValues[key] = parameterValue;
                     }
                 }
 
-                this.triggerSync(giant.EVENT_TEMPLATE_REPLACEMENTS_CHANGE);
+                this.triggerSync(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE);
 
                 return this;
             },
 
             /**
-             * Clears replacements buffer.
+             * Clears parameter values assigned to the template.
              * @returns {giant.LiveTemplate}
              */
-            clearReplacements: function () {
-                this.triggerSync(giant.EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE);
-                this.replacements = {};
-                this.triggerSync(giant.EVENT_TEMPLATE_REPLACEMENTS_CHANGE);
+            clearParameterValues: function () {
+                this.triggerSync(giant.EVENT_TEMPLATE_PARAMETER_VALUES_BEFORE_CHANGE);
+                this.parameterValues = {};
+                this.triggerSync(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE);
                 return this;
             },
 
@@ -93,7 +94,7 @@ giant.postpone(giant, 'LiveTemplate', function () {
              * @returns {string}
              */
             toString: function () {
-                return this.getResolvedString(this.replacements);
+                return this.getResolvedString(this.parameterValues);
             }
         });
 });
@@ -103,16 +104,16 @@ giant.postpone(giant, 'LiveTemplate', function () {
 
     giant.addGlobalConstants(/** @lends giant */{
         /**
-         * Signals that replacements in a template are about to change.
+         * Signals that parameter values in a template are about to change.
          * @constant
          */
-        EVENT_TEMPLATE_REPLACEMENTS_BEFORE_CHANGE: 'template.change.replacements.before',
+        EVENT_TEMPLATE_PARAMETER_VALUES_BEFORE_CHANGE: 'template.change.parameterValues.before',
 
         /**
-         * Signals that replacements in a template changed.
+         * Signals that parameter values in a template changed.
          * @constant
          */
-        EVENT_TEMPLATE_REPLACEMENTS_CHANGE: 'template.change.replacements.after'
+        EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE: 'template.change.parameterValues.after'
     });
 
     giant.addTypes(/** @lends giant */{
