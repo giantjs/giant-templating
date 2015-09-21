@@ -5,7 +5,8 @@ giant.postpone(giant, 'LiveTemplate', function () {
     var base = giant.Template,
         self = base.extend()
             .addTrait(giant.Documented)
-            .addTrait(giant.Evented);
+            .addTrait(giant.Evented),
+        shallowCopy = giant.DataUtils.shallowCopy;
 
     /**
      * Creates a LiveTemplate instance. LiveTemplate instances may also be created from string.
@@ -51,30 +52,34 @@ giant.postpone(giant, 'LiveTemplate', function () {
              * @returns {giant.LiveTemplate}
              */
             setParameterValues: function (parameterValues) {
-                var parameterNames = Object.keys(parameterValues),
+                var parameterValuesAfter = this.parameterValues,
+                    parameterValuesBefore = shallowCopy(parameterValuesAfter),
+                    parameterNames = Object.keys(parameterValues),
                     parameterCount = parameterNames.length,
-                    i, key, parameterValue;
-
-                this.triggerSync(giant.EVENT_TEMPLATE_PARAMETER_VALUES_BEFORE_CHANGE);
+                    i, parameterName, parameterValue;
 
                 for (i = 0; i < parameterCount; i++) {
-                    key = parameterNames[i];
-                    parameterValue = parameterValues[key];
+                    parameterName = parameterNames[i];
+                    parameterValue = parameterValues[parameterName];
 
                     if (giant.LiveTemplate.isBaseOf(parameterValue)) {
                         // when parameter value is a LiveTemplate
-                        this.parameterValues[key] = parameterValue.templateString;
+                        parameterValuesAfter[parameterName] = parameterValue.templateString;
 
                         // merging template's parameter value onto own
                         this.setParameterValues(parameterValue.parameterValues);
                     } else {
                         // for any other parameter type
                         // adding single parameter value
-                        this.parameterValues[key] = parameterValue;
+                        parameterValuesAfter[parameterName] = parameterValue;
                     }
                 }
 
-                this.triggerSync(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE);
+                this.spawnEvent(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE)
+                    .setPayloadItems({
+                        parameterValuesBefore: parameterValuesBefore,
+                        parameterValuesAfter : parameterValuesAfter
+                    });
 
                 return this;
             },
@@ -84,9 +89,18 @@ giant.postpone(giant, 'LiveTemplate', function () {
              * @returns {giant.LiveTemplate}
              */
             clearParameterValues: function () {
-                this.triggerSync(giant.EVENT_TEMPLATE_PARAMETER_VALUES_BEFORE_CHANGE);
-                this.parameterValues = {};
-                this.triggerSync(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE);
+                var parameterValuesBefore = this.parameterValues,
+                    parameterValuesAfter = {};
+
+                this.parameterValues = parameterValuesAfter;
+
+                // TODO: Add special event type instead of payload.
+                this.spawnEvent(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE)
+                    .setPayloadItems({
+                        parameterValuesBefore: parameterValuesBefore,
+                        parameterValuesAfter : parameterValuesAfter
+                    });
+
                 return this;
             },
 
@@ -104,16 +118,10 @@ giant.postpone(giant, 'LiveTemplate', function () {
 
     giant.addGlobalConstants(/** @lends giant */{
         /**
-         * Signals that parameter values in a template are about to change.
-         * @constant
-         */
-        EVENT_TEMPLATE_PARAMETER_VALUES_BEFORE_CHANGE: 'template.change.parameterValues.before',
-
-        /**
          * Signals that parameter values in a template changed.
          * @constant
          */
-        EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE: 'template.change.parameterValues.after'
+        EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE: 'template.change.parameterValues'
     });
 
     giant.addTypes(/** @lends giant */{

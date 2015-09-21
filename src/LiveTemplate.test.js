@@ -18,27 +18,27 @@
     });
 
     test("Parameter value addition", function () {
-        var template = 'foo {{bar}} baz'.toLiveTemplate(),
-            eventNames = [];
+        var template = 'foo {{bar}} baz'.toLiveTemplate();
 
-        template.addMocks({
-            triggerSync: function (eventName) {
-                eventNames.push(eventName);
-            }
-        });
+        function onParameterValuesChange (event) {
+            deepEqual(event.payload.parameterValuesBefore, {
+            }, "should set parameterValuesBefore on event");
+            deepEqual(event.payload.parameterValuesAfter, {
+                '{{bar}}': "Hello World"
+            }, "should set parameterValuesAfter on event");
+        }
+
+        template.subscribeTo(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
 
         strictEqual(template.setParameterValues({
             '{{bar}}': "Hello World"
         }), template, "should be chainable");
 
+        template.unsubscribeFrom(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
+
         deepEqual(template.parameterValues, {
             '{{bar}}': "Hello World"
-        }, "should add parameterValues to template's parameterValues buffer");
-
-        deepEqual(eventNames, [
-            giant.EVENT_TEMPLATE_PARAMETER_VALUES_BEFORE_CHANGE,
-            giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE
-        ], "should trigger template parameter value events");
+        }, "should add parameter values to template's parameterValues buffer");
     });
 
     test("Live template addition as parameter value", function () {
@@ -64,22 +64,23 @@
         var template = 'foo {{bar}} baz'.toLiveTemplate()
                 .setParameterValues({
                     '{{bar}}': "Hello World"
-                }),
-            eventNames = [];
+                });
 
-        template.addMocks({
-            triggerSync: function (eventName) {
-                eventNames.push(eventName);
-            }
-        });
+        function onParameterValuesChange (event) {
+            deepEqual(event.payload.parameterValuesBefore, {
+                '{{bar}}': "Hello World"
+            }, "should set parameterValuesBefore on event");
+            deepEqual(event.payload.parameterValuesAfter, {
+            }, "should set parameterValuesAfter on event");
+        }
+
+        template.subscribeTo(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
 
         strictEqual(template.clearParameterValues(), template, "should be chainable");
 
+        template.unsubscribeFrom(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
+
         deepEqual(template.parameterValues, {}, "should empty parameterValues buffer");
-        deepEqual(eventNames, [
-            giant.EVENT_TEMPLATE_PARAMETER_VALUES_BEFORE_CHANGE,
-            giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE
-        ], "should trigger parameter value events");
     });
 
     test("Serialization", function () {
