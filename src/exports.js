@@ -1,5 +1,5 @@
 /*jshint node:true */
-/*global giant */
+/*global $templating */
 if (typeof module === 'object') {
-    module.exports = giant;
+    module.exports = $templating;
 }

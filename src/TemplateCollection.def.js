@@ -1,14 +1,14 @@
-/*global giant */
-$oop.postpone(giant, 'TemplateCollection', function (/**giant*/widgets) {
+/*global $templating */
+$oop.postpone($templating, 'TemplateCollection', function (/**$templating*/widgets) {
     "use strict";
 
     /**
      * Creates a TemplateCollection instance. TemplateCollections may also be created by conversion
      * from arrays and Hash instances.
-     * @name giant.Template.create
+     * @name $templating.Template.create
      * @function
      * @param {object|Template[]} [items]
-     * @returns {giant.Template}
+     * @returns {$templating.Template}
      * @see String#toTemplateCollection
      * @see $data.Hash#toTemplateCollection
      */
@@ -17,10 +17,10 @@ $oop.postpone(giant, 'TemplateCollection', function (/**giant*/widgets) {
      * Collection of Template instances. Allows aggregated token extraction and parameter resolution.
      * @class
      * @extends $data.Collection
-     * @extends giant.Template
+     * @extends $templating.Template
      */
-    giant.TemplateCollection = $data.Collection.of(widgets.Template)
-        .addMethods(/** @lends giant.TemplateCollection */{
+    $templating.TemplateCollection = $data.Collection.of(widgets.Template)
+        .addMethods(/** @lends $templating.TemplateCollection */{
             /**
              * Extracts unique tokens from all formats in the collection.
              * @returns {$data.Collection}
@@ -79,9 +79,9 @@ $oop.amendPostponed($data, 'Hash', function () {
     "use strict";
 
     $data.Hash.addMethods(/** @lends $data.Hash */{
-        /** @returns {giant.TemplateCollection} */
+        /** @returns {$templating.TemplateCollection} */
         toTemplateCollection: function () {
-            return giant.TemplateCollection.create(this.items);
+            return $templating.TemplateCollection.create(this.items);
         }
     });
 });
@@ -90,9 +90,9 @@ $oop.amendPostponed($data, 'Hash', function () {
     "use strict";
 
     $oop.extendBuiltIn(Array.prototype, /** @lends Array# */{
-        /** @returns {giant.TemplateCollection} */
+        /** @returns {$templating.TemplateCollection} */
         toTemplateCollection: function () {
-            return giant.TemplateCollection.create(this);
+            return $templating.TemplateCollection.create(this);
         }
     });
 }());

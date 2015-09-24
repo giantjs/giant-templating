@@ -1,4 +1,4 @@
-/*global giant */
+/*global $templating */
 (function () {
     "use strict";
 
@@ -11,7 +11,7 @@
             'baz'.toTemplate()
         ].toTemplateCollection();
 
-        ok(templates.isA(giant.TemplateCollection), "should return TemplateCollection instance");
+        ok(templates.isA($templating.TemplateCollection), "should return TemplateCollection instance");
         equal(templates.getKeyCount(), 3, "should preserve item count");
     });
 
@@ -23,13 +23,13 @@
             ].toHash(),
             templates = hash.toTemplateCollection();
 
-        ok(templates.isA(giant.TemplateCollection), "should return TemplateCollection instance");
+        ok(templates.isA($templating.TemplateCollection), "should return TemplateCollection instance");
         equal(templates.getKeyCount(), 3, "should preserve item count");
     });
 
     test("Unique token extraction from mixed template collection", function () {
         var templates = [
-                giant.Template.create({
+                $templating.Template.create({
                     toString: function () {
                         return 'hello {{foo}} world {{bar}} !';
                     }
@@ -55,8 +55,8 @@
     });
 
     test("Parameter resolution", function () {
-        var templates = giant.TemplateCollection.create({
-                '{{}}'   : giant.Template.create({
+        var templates = $templating.TemplateCollection.create({
+                '{{}}'   : $templating.Template.create({
                     toString: function () {
                         return 'hello {{foo}} world {{bar}} !';
                     }

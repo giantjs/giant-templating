@@ -1,11 +1,11 @@
-/*global giant */
+/*global $templating */
 (function () {
     "use strict";
 
     module("LiveTemplate");
 
     test("Instantiation", function () {
-        var template = giant.LiveTemplate.create('foo');
+        var template = $templating.LiveTemplate.create('foo');
         deepEqual(template.parameterValues, {}, "should set parameterValues property");
         ok(template.eventPath.equals(['template', template.instanceId].toPath()), "should set event path");
     });
@@ -13,7 +13,7 @@
     test("Conversion from string", function () {
         var template = 'foo'.toLiveTemplate();
 
-        ok(template.isA(giant.LiveTemplate), "should return LiveTemplate instance");
+        ok(template.isA($templating.LiveTemplate), "should return LiveTemplate instance");
         deepEqual(template.parameterValues, {}, "should set parameterValues property");
     });
 
@@ -28,13 +28,13 @@
             }, "should set parameterValuesAfter on event");
         }
 
-        template.subscribeTo(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
+        template.subscribeTo($templating.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
 
         strictEqual(template.setParameterValues({
             '{{bar}}': "Hello World"
         }), template, "should be chainable");
 
-        template.unsubscribeFrom(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
+        template.unsubscribeFrom($templating.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
 
         deepEqual(template.parameterValues, {
             '{{bar}}': "Hello World"
@@ -74,11 +74,11 @@
             }, "should set parameterValuesAfter on event");
         }
 
-        template.subscribeTo(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
+        template.subscribeTo($templating.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
 
         strictEqual(template.clearParameterValues(), template, "should be chainable");
 
-        template.unsubscribeFrom(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
+        template.unsubscribeFrom($templating.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE, onParameterValuesChange);
 
         deepEqual(template.parameterValues, {}, "should empty parameterValues buffer");
     });

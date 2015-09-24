@@ -1,8 +1,8 @@
-/*global giant */
-$oop.postpone(giant, 'LiveTemplate', function () {
+/*global $templating */
+$oop.postpone($templating, 'LiveTemplate', function () {
     "use strict";
 
-    var base = giant.Template,
+    var base = $templating.Template,
         self = base.extend()
             .addTrait($data.Documented)
             .addTrait($event.Evented),
@@ -10,10 +10,10 @@ $oop.postpone(giant, 'LiveTemplate', function () {
 
     /**
      * Creates a LiveTemplate instance. LiveTemplate instances may also be created from string.
-     * @name giant.LiveTemplate.create
+     * @name $templating.LiveTemplate.create
      * @function
      * @param {string|$utils.Stringifiable} templateString
-     * @returns {giant.LiveTemplate}
+     * @returns {$templating.LiveTemplate}
      * @see String#toLiveTemplate
      */
 
@@ -21,14 +21,14 @@ $oop.postpone(giant, 'LiveTemplate', function () {
      * Template that carries the parameter values with it and can be stringified into a resolved template.
      * LiveTemplate triggers events when changing parameter values.
      * @class
-     * @extends giant.Template
+     * @extends $templating.Template
      * @extends $data.Documented
      * @extends $event.Evented
      * @extends $utils.Stringifiable
      */
-    giant.LiveTemplate = self
+    $templating.LiveTemplate = self
         .setEventSpace($event.eventSpace)
-        .addMethods(/** @lends giant.LiveTemplate# */{
+        .addMethods(/** @lends $templating.LiveTemplate# */{
             /**
              * @param {string|$utils.Stringifiable} templateString
              * @ignore
@@ -49,7 +49,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
              * Merges specified parameter values into the template's own set of parameter values.
              * New values overwrite old values associated with the same parameter.
              * @param {object} parameterValues
-             * @returns {giant.LiveTemplate}
+             * @returns {$templating.LiveTemplate}
              */
             setParameterValues: function (parameterValues) {
                 var parameterValuesAfter = this.parameterValues,
@@ -62,7 +62,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
                     parameterName = parameterNames[i];
                     parameterValue = parameterValues[parameterName];
 
-                    if (giant.LiveTemplate.isBaseOf(parameterValue)) {
+                    if ($templating.LiveTemplate.isBaseOf(parameterValue)) {
                         // when parameter value is a LiveTemplate
                         parameterValuesAfter[parameterName] = parameterValue.templateString;
 
@@ -75,7 +75,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
                     }
                 }
 
-                this.spawnEvent(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE)
+                this.spawnEvent($templating.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE)
                     .setPayloadItems({
                         parameterValuesBefore: parameterValuesBefore,
                         parameterValuesAfter : parameterValuesAfter
@@ -86,7 +86,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
 
             /**
              * Clears parameter values assigned to the template.
-             * @returns {giant.LiveTemplate}
+             * @returns {$templating.LiveTemplate}
              */
             clearParameterValues: function () {
                 var parameterValuesBefore = this.parameterValues,
@@ -95,7 +95,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
                 this.parameterValues = parameterValuesAfter;
 
                 // TODO: Add special event type instead of payload.
-                this.spawnEvent(giant.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE)
+                this.spawnEvent($templating.EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE)
                     .setPayloadItems({
                         parameterValuesBefore: parameterValuesBefore,
                         parameterValuesAfter : parameterValuesAfter
@@ -116,7 +116,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
 (function () {
     "use strict";
 
-    $oop.addGlobalConstants.call(giant, /** @lends giant */{
+    $oop.addGlobalConstants.call($templating, /** @lends $templating */{
         /**
          * Signals that parameter values in a template changed.
          * @constant
@@ -124,26 +124,26 @@ $oop.postpone(giant, 'LiveTemplate', function () {
         EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE: 'template.change.parameterValues'
     });
 
-    $assertion.addTypes(/** @lends giant */{
-        /** @param {giant.LiveTemplate} expr */
+    $assertion.addTypes(/** @lends $templating */{
+        /** @param {$templating.LiveTemplate} expr */
         isLiveTemplate: function (expr) {
-            return giant.LiveTemplate.isBaseOf(expr);
+            return $templating.LiveTemplate.isBaseOf(expr);
         },
 
-        /** @param {giant.LiveTemplate} expr */
+        /** @param {$templating.LiveTemplate} expr */
         isLiveTemplateOptional: function (expr) {
             return typeof expr === 'undefined' &&
-                giant.LiveTemplate.isBaseOf(expr);
+                $templating.LiveTemplate.isBaseOf(expr);
         }
     });
 
     $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
          * Converts string to LiveTemplate instance.
-         * @returns {giant.LiveTemplate}
+         * @returns {$templating.LiveTemplate}
          */
         toLiveTemplate: function () {
-            return giant.LiveTemplate.create(this.valueOf());
+            return $templating.LiveTemplate.create(this.valueOf());
         }
     });
 }());

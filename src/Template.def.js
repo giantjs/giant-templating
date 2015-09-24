@@ -1,5 +1,5 @@
-/*global giant */
-$oop.postpone(giant, 'Template', function () {
+/*global $templating */
+$oop.postpone($templating, 'Template', function () {
     "use strict";
 
     var base = $oop.Base,
@@ -7,11 +7,11 @@ $oop.postpone(giant, 'Template', function () {
 
     /**
      * Creates a Template instance. Templates may also be created by conversion from string.
-     * @name giant.Template.create
+     * @name $templating.Template.create
      * @function
      * @param {string|$utils.Stringifiable} templateString Either handlebars based string,
      * or object that serializes to one.
-     * @returns {giant.Template}
+     * @returns {$templating.Template}
      * @see String#toTemplate
      */
 
@@ -21,8 +21,8 @@ $oop.postpone(giant, 'Template', function () {
      * @class
      * @extends $oop.Base
      */
-    giant.Template = self
-        .addConstants(/** @lends giant.Template */{
+    $templating.Template = self
+        .addConstants(/** @lends $templating.Template */{
             /**
              * @type {RegExp}
              * @constant
@@ -41,7 +41,7 @@ $oop.postpone(giant, 'Template', function () {
              */
             RE_TEMPLATE_SPLITTER: /({{.+?}})/
         })
-        .addPrivateMethods(/** @lends giant.Template# */{
+        .addPrivateMethods(/** @lends $templating.Template# */{
             /**
              * @param {Array} resolvedParameters Array of strings and arrays.
              * @returns {string}
@@ -75,7 +75,7 @@ $oop.postpone(giant, 'Template', function () {
                             return typeof parameterValue !== 'undefined';
                         })
                         // converting each parameter value to Template
-                        .createWithEachItem(giant.Template),
+                        .createWithEachItem($templating.Template),
                     resolvedParameters = $data.Collection
                         // merging current templateString with parameter values as templates
                         .create({
@@ -98,7 +98,7 @@ $oop.postpone(giant, 'Template', function () {
                 return this.templateString.replace(self.RE_PARAMETER, '');
             }
         })
-        .addMethods(/** @lends giant.Template# */{
+        .addMethods(/** @lends $templating.Template# */{
             /**
              * @param {string|$utils.Stringifiable} templateString
              * @ignore
@@ -156,26 +156,26 @@ $oop.postpone(giant, 'Template', function () {
 (function () {
     "use strict";
 
-    $assertion.addTypes(/** @lends giant */{
-        /** @param {giant.Template} expr */
+    $assertion.addTypes(/** @lends $templating */{
+        /** @param {$templating.Template} expr */
         isTemplate: function (expr) {
-            return giant.Template.isBaseOf(expr);
+            return $templating.Template.isBaseOf(expr);
         },
 
-        /** @param {giant.Template} expr */
+        /** @param {$templating.Template} expr */
         isTemplateOptional: function (expr) {
             return typeof expr === 'undefined' &&
-                giant.Template.isBaseOf(expr);
+                $templating.Template.isBaseOf(expr);
         }
     });
 
     $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
          * Converts string to Template instance.
-         * @returns {giant.Template}
+         * @returns {$templating.Template}
          */
         toTemplate: function () {
-            return giant.Template.create(this.valueOf());
+            return $templating.Template.create(this.valueOf());
         }
     });
 }());
