@@ -156,7 +156,7 @@ giant.postpone(giant, 'Template', function () {
 (function () {
     "use strict";
 
-    giant.addTypes(/** @lends giant */{
+    $assertion.addTypes(/** @lends giant */{
         /** @param {giant.Template} expr */
         isTemplate: function (expr) {
             return giant.Template.isBaseOf(expr);

@@ -124,7 +124,7 @@ giant.postpone(giant, 'LiveTemplate', function () {
         EVENT_TEMPLATE_PARAMETER_VALUES_CHANGE: 'template.change.parameterValues'
     });
 
-    giant.addTypes(/** @lends giant */{
+    $assertion.addTypes(/** @lends giant */{
         /** @param {giant.LiveTemplate} expr */
         isLiveTemplate: function (expr) {
             return giant.LiveTemplate.isBaseOf(expr);
