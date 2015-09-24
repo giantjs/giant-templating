@@ -41,7 +41,7 @@
 
         tokens = templates.extractUniqueTokens();
 
-        ok(tokens.isA(giant.Collection), "should return Collection instance");
+        ok(tokens.isA($data.Collection), "should return Collection instance");
         deepEqual(tokens.items, {
             'hello ' : 'hello ',
             '{{foo}}': '{{foo}}',

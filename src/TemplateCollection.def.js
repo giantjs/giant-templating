@@ -10,20 +10,20 @@ $oop.postpone(giant, 'TemplateCollection', function (/**giant*/widgets) {
      * @param {object|Template[]} [items]
      * @returns {giant.Template}
      * @see String#toTemplateCollection
-     * @see giant.Hash#toTemplateCollection
+     * @see $data.Hash#toTemplateCollection
      */
 
     /**
      * Collection of Template instances. Allows aggregated token extraction and parameter resolution.
      * @class
-     * @extends giant.Collection
+     * @extends $data.Collection
      * @extends giant.Template
      */
-    giant.TemplateCollection = giant.Collection.of(widgets.Template)
+    giant.TemplateCollection = $data.Collection.of(widgets.Template)
         .addMethods(/** @lends giant.TemplateCollection */{
             /**
              * Extracts unique tokens from all formats in the collection.
-             * @returns {giant.Collection}
+             * @returns {$data.Collection}
              */
             extractUniqueTokens: function () {
                 return this
@@ -75,10 +75,10 @@ $oop.postpone(giant, 'TemplateCollection', function (/**giant*/widgets) {
         });
 });
 
-$oop.amendPostponed(giant, 'Hash', function () {
+$oop.amendPostponed($data, 'Hash', function () {
     "use strict";
 
-    giant.Hash.addMethods(/** @lends giant.Hash */{
+    $data.Hash.addMethods(/** @lends $data.Hash */{
         /** @returns {giant.TemplateCollection} */
         toTemplateCollection: function () {
             return giant.TemplateCollection.create(this.items);

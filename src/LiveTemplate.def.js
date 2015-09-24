@@ -4,9 +4,9 @@ $oop.postpone(giant, 'LiveTemplate', function () {
 
     var base = giant.Template,
         self = base.extend()
-            .addTrait(giant.Documented)
+            .addTrait($data.Documented)
             .addTrait(giant.Evented),
-        shallowCopy = giant.DataUtils.shallowCopy;
+        shallowCopy = $data.DataUtils.shallowCopy;
 
     /**
      * Creates a LiveTemplate instance. LiveTemplate instances may also be created from string.
@@ -22,7 +22,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
      * LiveTemplate triggers events when changing parameter values.
      * @class
      * @extends giant.Template
-     * @extends giant.Documented
+     * @extends $data.Documented
      * @extends giant.Evented
      * @extends $utils.Stringifiable
      */
@@ -35,7 +35,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
              */
             init: function (templateString) {
                 base.init.call(this, templateString);
-                giant.Documented.init.call(this);
+                $data.Documented.init.call(this);
                 this.setEventPath(['template', this.instanceId].toPath());
 
                 /**

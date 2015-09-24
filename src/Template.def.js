@@ -69,14 +69,14 @@ $oop.postpone(giant, 'Template', function () {
              * @private
              */
             _resolveParameters: function (parameterValues) {
-                var parameterValuesAsTemplates = giant.Collection.create(parameterValues)
+                var parameterValuesAsTemplates = $data.Collection.create(parameterValues)
                         // discarding undefined parameter values
                         .filterBySelector(function (parameterValue) {
                             return typeof parameterValue !== 'undefined';
                         })
                         // converting each parameter value to Template
                         .createWithEachItem(giant.Template),
-                    resolvedParameters = giant.Collection
+                    resolvedParameters = $data.Collection
                         // merging current templateString with parameter values as templates
                         .create({
                             '{{}}': this
