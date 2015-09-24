@@ -1,8 +1,8 @@
 /*global giant */
-giant.postpone(giant, 'Template', function () {
+$oop.postpone(giant, 'Template', function () {
     "use strict";
 
-    var base = giant.Base,
+    var base = $oop.Base,
         self = base.extend();
 
     /**
@@ -19,7 +19,7 @@ giant.postpone(giant, 'Template', function () {
      * Defines a template with handlebars parameters. Parameters may be replaced
      * with strings and Stringifiable instances.
      * @class
-     * @extends giant.Base
+     * @extends $oop.Base
      */
     giant.Template = self
         .addConstants(/** @lends giant.Template */{
@@ -169,7 +169,7 @@ giant.postpone(giant, 'Template', function () {
         }
     });
 
-    giant.extendBuiltIn(String.prototype, /** @lends String# */{
+    $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
          * Converts string to Template instance.
          * @returns {giant.Template}

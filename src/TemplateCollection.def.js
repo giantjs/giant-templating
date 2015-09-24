@@ -1,5 +1,5 @@
 /*global giant */
-giant.postpone(giant, 'TemplateCollection', function (/**giant*/widgets) {
+$oop.postpone(giant, 'TemplateCollection', function (/**giant*/widgets) {
     "use strict";
 
     /**
@@ -75,7 +75,7 @@ giant.postpone(giant, 'TemplateCollection', function (/**giant*/widgets) {
         });
 });
 
-giant.amendPostponed(giant, 'Hash', function () {
+$oop.amendPostponed(giant, 'Hash', function () {
     "use strict";
 
     giant.Hash.addMethods(/** @lends giant.Hash */{
@@ -89,7 +89,7 @@ giant.amendPostponed(giant, 'Hash', function () {
 (function () {
     "use strict";
 
-    giant.extendBuiltIn(Array.prototype, /** @lends Array# */{
+    $oop.extendBuiltIn(Array.prototype, /** @lends Array# */{
         /** @returns {giant.TemplateCollection} */
         toTemplateCollection: function () {
             return giant.TemplateCollection.create(this);

@@ -1,5 +1,5 @@
 /*global giant */
-giant.postpone(giant, 'LiveTemplate', function () {
+$oop.postpone(giant, 'LiveTemplate', function () {
     "use strict";
 
     var base = giant.Template,
@@ -116,7 +116,7 @@ giant.postpone(giant, 'LiveTemplate', function () {
 (function () {
     "use strict";
 
-    giant.addGlobalConstants(/** @lends giant */{
+    $oop.addGlobalConstants.call(giant, /** @lends giant */{
         /**
          * Signals that parameter values in a template changed.
          * @constant
@@ -137,7 +137,7 @@ giant.postpone(giant, 'LiveTemplate', function () {
         }
     });
 
-    giant.extendBuiltIn(String.prototype, /** @lends String# */{
+    $oop.extendBuiltIn(String.prototype, /** @lends String# */{
         /**
          * Converts string to LiveTemplate instance.
          * @returns {giant.LiveTemplate}
