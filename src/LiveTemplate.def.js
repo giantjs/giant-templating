@@ -5,7 +5,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
     var base = giant.Template,
         self = base.extend()
             .addTrait($data.Documented)
-            .addTrait(giant.Evented),
+            .addTrait($event.Evented),
         shallowCopy = $data.DataUtils.shallowCopy;
 
     /**
@@ -23,11 +23,11 @@ $oop.postpone(giant, 'LiveTemplate', function () {
      * @class
      * @extends giant.Template
      * @extends $data.Documented
-     * @extends giant.Evented
+     * @extends $event.Evented
      * @extends $utils.Stringifiable
      */
     giant.LiveTemplate = self
-        .setEventSpace(giant.eventSpace)
+        .setEventSpace($event.eventSpace)
         .addMethods(/** @lends giant.LiveTemplate# */{
             /**
              * @param {string|$utils.Stringifiable} templateString
