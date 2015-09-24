@@ -9,7 +9,7 @@ $oop.postpone(giant, 'Template', function () {
      * Creates a Template instance. Templates may also be created by conversion from string.
      * @name giant.Template.create
      * @function
-     * @param {string|giant.Stringifiable} templateString Either handlebars based string,
+     * @param {string|$utils.Stringifiable} templateString Either handlebars based string,
      * or object that serializes to one.
      * @returns {giant.Template}
      * @see String#toTemplate
@@ -100,13 +100,13 @@ $oop.postpone(giant, 'Template', function () {
         })
         .addMethods(/** @lends giant.Template# */{
             /**
-             * @param {string|giant.Stringifiable} templateString
+             * @param {string|$utils.Stringifiable} templateString
              * @ignore
              */
             init: function (templateString) {
                 /**
                  * Original templateString string.
-                 * @type {string|giant.Stringifiable}
+                 * @type {string|$utils.Stringifiable}
                  */
                 this.templateString = templateString;
             },
@@ -117,7 +117,7 @@ $oop.postpone(giant, 'Template', function () {
              * @returns {string|string[]}
              */
             extractTokens: function () {
-                var serializedTemplate = giant.Stringifier.stringify(this.templateString),
+                var serializedTemplate = $utils.Stringifier.stringify(this.templateString),
                     parsedTemplate;
 
                 if (self.RE_PARAMETER_TESTER.test(serializedTemplate)) {
@@ -148,7 +148,7 @@ $oop.postpone(giant, 'Template', function () {
              * @returns {string}
              */
             toString: function () {
-                return giant.Stringifier.stringify(this.templateString);
+                return $utils.Stringifier.stringify(this.templateString);
             }
         });
 });

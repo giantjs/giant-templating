@@ -12,7 +12,7 @@ $oop.postpone(giant, 'LiveTemplate', function () {
      * Creates a LiveTemplate instance. LiveTemplate instances may also be created from string.
      * @name giant.LiveTemplate.create
      * @function
-     * @param {string|giant.Stringifiable} templateString
+     * @param {string|$utils.Stringifiable} templateString
      * @returns {giant.LiveTemplate}
      * @see String#toLiveTemplate
      */
@@ -24,13 +24,13 @@ $oop.postpone(giant, 'LiveTemplate', function () {
      * @extends giant.Template
      * @extends giant.Documented
      * @extends giant.Evented
-     * @extends giant.Stringifiable
+     * @extends $utils.Stringifiable
      */
     giant.LiveTemplate = self
         .setEventSpace(giant.eventSpace)
         .addMethods(/** @lends giant.LiveTemplate# */{
             /**
-             * @param {string|giant.Stringifiable} templateString
+             * @param {string|$utils.Stringifiable} templateString
              * @ignore
              */
             init: function (templateString) {
