@@ -1,4 +1,3 @@
-/*global $templating */
 $oop.postpone($templating, 'LiveTemplate', function () {
     "use strict";
 

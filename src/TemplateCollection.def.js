@@ -1,4 +1,3 @@
-/*global $templating */
 $oop.postpone($templating, 'TemplateCollection', function (/**$templating*/widgets) {
     "use strict";
 

@@ -1,4 +1,3 @@
-/*global $templating */
 (function () {
     "use strict";
 
