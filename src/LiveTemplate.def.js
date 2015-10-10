@@ -3,7 +3,7 @@ $oop.postpone($templating, 'LiveTemplate', function () {
 
     var base = $templating.Template,
         self = base.extend()
-            .addTrait($data.Documented)
+            .addTrait($utils.Documented)
             .addTrait($event.Evented),
         shallowCopy = $data.DataUtils.shallowCopy;
 
@@ -21,7 +21,7 @@ $oop.postpone($templating, 'LiveTemplate', function () {
      * LiveTemplate triggers events when changing parameter values.
      * @class
      * @extends $templating.Template
-     * @extends $data.Documented
+     * @extends $utils.Documented
      * @extends $event.Evented
      * @extends $utils.Stringifiable
      */
@@ -34,7 +34,7 @@ $oop.postpone($templating, 'LiveTemplate', function () {
              */
             init: function (templateString) {
                 base.init.call(this, templateString);
-                $data.Documented.init.call(this);
+                $utils.Documented.init.call(this);
                 this.setEventPath(['template', this.instanceId].toPath());
 
                 /**
