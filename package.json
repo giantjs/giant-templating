@@ -1,6 +1,6 @@
 {
   "name": "giant-templating",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "String templating module for Giant",
   "keywords": [
     "template",
