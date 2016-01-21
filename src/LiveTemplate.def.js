@@ -78,7 +78,8 @@ $oop.postpone($templating, 'LiveTemplate', function () {
                     .setPayloadItems({
                         parameterValuesBefore: parameterValuesBefore,
                         parameterValuesAfter : parameterValuesAfter
-                    });
+                    })
+                    .triggerSync();
 
                 return this;
             },
@@ -98,7 +99,8 @@ $oop.postpone($templating, 'LiveTemplate', function () {
                     .setPayloadItems({
                         parameterValuesBefore: parameterValuesBefore,
                         parameterValuesAfter : parameterValuesAfter
-                    });
+                    })
+                    .triggerSync();
 
                 return this;
             },
